@@ -1,0 +1,66 @@
+.Info-container {
+  background-color: black;
+  height: auto;
+  max-height: auto;
+}
+
+.search-icon {
+  position: absolute;
+  left: 23px;
+  top: 14px;
+  height: 23px;
+}
+.search-bar {
+  color: rgb(113, 118, 123);
+  background-color: rgb(35, 35, 41);
+  height: 55px;
+  font-size: 16px;
+  border-radius: 30px;
+  box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.15);
+  display: block;
+  width: 74%;
+  outline: none;
+  padding-left: 70px;
+  padding-right: 23px;
+}
+.search-bar::placeholder {
+  font-size: 19px;
+}
+.info-trends {
+  flex: 1fr;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  border: 1px solid rgb(97, 95, 95);
+  border-radius: 20px;
+  width: 90%;
+  padding: 15px;
+  padding-bottom: 20px;
+  gap: 35px;
+}
+.trend-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.trend-child-1 {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-recommendations {
+  border: 1px solid rgb(97, 95, 95);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  border-radius: 20px;
+  width: 90%;
+  padding: 15px;
+  gap: 35px;
+}
+.recommend-container {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}

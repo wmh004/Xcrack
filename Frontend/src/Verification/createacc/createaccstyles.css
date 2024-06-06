@@ -1,0 +1,184 @@
+* {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+.create-acc-container-1 {
+  width: 100%;
+  height: 100vh; /* Make sure it takes the full viewport height */
+  box-sizing: border-box; /* Ensure padding is included in the width and height */
+  overflow: hidden; /* Prevents the content from overflowing and causing scrollbars */
+  background-color: black;
+}
+
+.create-acc-container-2 {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.filler-3 {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 650px;
+  position: relative;
+}
+.create-acc-logo {
+  height: 55px;
+}
+.create-acc-close-button {
+  padding: 3px 10px;
+  border-radius: 70px;
+  position: absolute;
+  left: 0;
+}
+.create-acc-close-button:hover {
+  background-color: rgba(113, 118, 123, 0.3);
+}
+.create-acc-next-button,
+.forgot-pass-next-button {
+  width: 100%;
+  background-color: rgb(113, 118, 123);
+  color: black;
+  padding: 15px;
+  border-radius: 45px;
+  font-size: 19px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+.forgot-pass-next-button.active {
+  background-color: rgb(239, 243, 244); /* Active state color */
+}
+
+.create-acc-contents {
+  flex: 10;
+  width: 100%;
+  max-width: 650px;
+}
+.create-acc-container-2-child-1 {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 40px;
+  border-radius: 8px;
+  margin-bottom: 50px;
+  margin-top: 30px;
+  height: 160px;
+  position: relative;
+}
+.create-acc-container-2 .field {
+  position: relative;
+}
+
+.create-acc-container-2 label {
+  color: rgb(113, 118, 123);
+  display: block;
+  font-size: 16px;
+  position: absolute;
+  top: 19px;
+  left: 15px;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.create-acc-container-2 input:focus ~ label,
+.create-acc-container-2 input:hover ~ label,
+.create-acc-container-2 input:not(:placeholder-shown) ~ label {
+  top: 5px;
+  color: rgb(29, 155, 240);
+  font-size: 14px;
+}
+
+.create-acc-container-2 input:focus,
+.create-acc-container-2 input:hover,
+.create-acc-container-2 input:active,
+.create-acc-container-2 input:not(:placeholder-shown) {
+  border: 2px solid rgb(29, 155, 240) !important;
+}
+
+.create-acc-container-2 input {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid rgb(113, 118, 123);
+  border-radius: 4px;
+  background-color: black;
+  height: 100%;
+  padding-top: 25px;
+  transition: border-color 0.5s, background-color 0.5s;
+}
+
+.create-acc-container-2-child-2 {
+  display: grid;
+  grid-template-columns: 3fr 1fr 2fr;
+  gap: 10px;
+  border-radius: 8px;
+  margin-bottom: 50px;
+  margin-top: 30px;
+  height: 30px;
+  position: relative;
+}
+.create-acc-container-2-child-2 label {
+  color: rgb(113, 118, 123);
+  display: block;
+  font-size: 16px;
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  transition: 0.2s;
+  pointer-events: none;
+}
+.create-acc-container-2-child-2 select:focus ~ label,
+.create-acc-container-2-child-2 select:hover ~ label,
+.create-acc-container-2-child-2 select:active ~ label {
+  top: 5px;
+  color: rgb(29, 155, 240);
+  font-size: 14px;
+}
+
+.create-acc-container-2-child-2 select:focus,
+.create-acc-container-2-child-2 select:hover,
+.create-acc-container-2-child-2 select:active {
+  border: 2px solid rgb(29, 155, 240) !important;
+}
+.create-acc-container-2-child-2 select {
+  width: 100%;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  border: 1px solid rgb(113, 118, 123);
+  border-radius: 4px;
+  background-color: black;
+  height: 100%;
+  padding-top: 25px;
+  transition: border-color 0.5s, background-color 0.5s;
+  color: white; /* Ensure text color is visible on black background */
+}
+
+.create-acc-container-2-child-2 option {
+  color: white; /* Reset option color for readability */
+}
+
+.create-acc-container-1 .header-1 {
+  font-size: 30px;
+  font-weight: 550;
+  color: rgb(231, 233, 234);
+}
+.create-acc-container-1 .header-2 {
+  font-size: 16px;
+  color: rgb(231, 233, 234);
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.create-acc-container-1 .text {
+  font-size: 16px;
+  color: rgb(113, 118, 123);
+  margin-bottom: 10px;
+}
+

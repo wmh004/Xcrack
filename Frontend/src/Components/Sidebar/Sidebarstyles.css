@@ -1,0 +1,100 @@
+* {
+  border: 0;
+  padding: 0;
+  color: rgb(231, 233, 234);
+  font-size: 18px;
+  font-family: Roboto, Arial, sans-serif;
+}
+.sidebar-container {
+  width: auto; /* 1/4 of the page width */
+  background-color: #000000;
+  height: auto;
+}
+.sidebar {
+  background: #000;
+  color: rgb(231, 233, 234);
+  height: 100vh;
+  width: auto;
+  transition: all 0.5s;
+  display: flex;
+  flex-direction: column; /* Align items vertically */
+  gap: 15px;
+  position: relative;
+}
+.bars {
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+  padding-top: 10px;
+  padding-bottom: 2px;
+  padding-left: 15px;
+}
+.link {
+  padding: 10px;
+  color: rgb(231, 233, 234);
+  transition: all 0.5s;
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+}
+.link:hover .link-child {
+  background: rgb(50, 51, 51);
+  transition: all 0.5s;
+}
+.link.active div {
+  font-weight: 700;
+}
+.icon,
+.link_text {
+  font-size: 26px;
+  font-weight: 400;
+  color: rgb(231, 233, 234);
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+}
+.link-child {
+  border-radius: 60px;
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+  gap: 15px;
+}
+.icon {
+  padding: 10px;
+}
+
+.bars-bottom {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end; /* Vertically center the content */
+  padding-top: 10px;
+  padding-bottom: 2px;
+  position: relative;
+}
+.bars-bottom .tooltip {
+  z-index: 2;
+  background-color: black;
+  padding: 20px;
+  box-sizing: border-box;
+  position: absolute;
+  top: -100px;
+  left: 0px;
+  border-radius: 15px;
+  width: 300px;
+  height: auto;
+  opacity: 0;
+  visibility: hidden;
+  flex-direction: column;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  white-space: nowrap;
+  box-shadow: 0px 0px 5px white;
+}
+.tooltip.show-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+.bars-bottom .tooltip p{
+  font-weight: 500;
+}

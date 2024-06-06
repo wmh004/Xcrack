@@ -1,0 +1,36 @@
+.app-container {
+  display: flex;
+  position: relative;
+}
+
+.filler {
+  flex: 1;
+  background-color: #000000;
+  height: auto;
+}
+
+.content {
+  width: 760px; /* Takes up remaining space */
+  background-color: #000000;
+  border-right: 1px solid rgb(97, 95, 95);
+  border-left: 1px solid rgb(97, 95, 95);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+main {
+  width: 100%;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 30px;
+}
+.p {
+  color: rgb(231, 233, 234);
+  font-size: 18px;
+  font-family: Roboto, Arial, sans-serif;
+}

@@ -1,0 +1,95 @@
+.home-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: 100%;
+  gap: 25px;
+  border-bottom: 1px solid rgb(97, 95, 95);
+  position: relative;
+  box-sizing: border-box;
+  padding-left: 15px;
+  overflow: visible;
+}
+.home-content-inner-container-1 {
+  display: flex;
+}
+.home-content-username {
+  font-style: bold;
+  font-weight: 600;
+  text-decoration: none;
+}
+.home-content-username:hover {
+  text-decoration: underline;
+}
+.home-content-account-name,
+.home-content-time {
+  color: rgb(113, 118, 123);
+}
+.home-content-username,
+.home-content-account-name {
+  cursor: pointer;
+}
+.home-content-inner-container-2 {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.home-content-inner-container-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 60px;
+}
+.home-content-inner-container-3-child {
+  display: flex;
+  justify-content: flex-start; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+  gap: 5px;
+}
+.home-content-inner-container-3-child p {
+  font-size: 14px;
+  color: rgb(113, 118, 123);
+}
+
+.home-content .summary-tooltip {
+  z-index: 2;
+  background-color: black;
+  padding: 10px;
+  position: absolute;
+  top: 50px;
+  left: 35px;
+  border-radius: 15px;
+  width: 300px;
+  opacity: 0;
+  visibility: hidden;
+  flex-direction: column;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  white-space: nowrap;
+  box-shadow: 0px 0px 5px white;
+}
+
+.summary-tooltip.show-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.summary-tooltip-profile-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.more-tooltip {
+  z-index: 2;
+  background-color: black;
+  padding: 10px;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  border-radius: 15px;
+  width: 300px;
+  /* opacity: 0;
+  visibility: hidden; */
+  flex-direction: column;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  white-space: nowrap;
+  box-shadow: 0px 0px 5px white;
+}
+.more-tooltip.show-tooltip {
+  opacity: 1;
+  visibility: visible;
+}

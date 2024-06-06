@@ -1,0 +1,32 @@
+* {
+  border: 0;
+  padding: 0;
+  color: rgb(231, 233, 234);
+  font-size: 18px;
+  font-family: Roboto, Arial, sans-serif;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reply-header-container {
+  display: grid;
+  background-color: rgba(0, 0, 0, 0.92);
+  height: 100%;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 30px;
+}
+.reply-header-container div {
+  font-weight: 520;
+  font-size: 25px;
+  color: white;
+}
+.reply-header-arrow {
+  padding: 9px;
+  border-radius: 30px;
+}
+.reply-header-arrow:hover {
+  background: rgb(50, 51, 51);
+}

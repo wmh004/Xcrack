@@ -1,0 +1,52 @@
+.reply-content {
+  display: grid;
+  grid-template-rows: 65px 1fr 50px 60px;
+  width: 100%;
+  gap: 5px;
+}
+/* .reply-content div {
+  border: 1px solid white;
+} */
+.reply-content-child-1 {
+  display: grid;
+  grid-template-columns: 50px 1fr 0.4fr;
+  gap: 5px;
+}
+.reply-content-child-1-child-2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.reply-content-child-3 {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  /* border: 1px solid white; */
+}
+.reply-content-child-3-child {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2px;
+}
+.reply-content-child-3-child div {
+  font-size: 18px;
+  color: rgb(113, 118, 123);
+}
+.reply-content-child-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 0.2fr;
+}
+.reply-content-child-4-child {
+  display: flex;
+  justify-content: fslex-start; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+  gap: 5px;
+  border-top: 1px solid rgb(97, 95, 95);
+  border-bottom: 1px solid rgb(97, 95, 95);
+}
+
+.reply-content-child-4-child p {
+  font-size: 17px;
+  color: rgb(113, 118, 123);
+}
