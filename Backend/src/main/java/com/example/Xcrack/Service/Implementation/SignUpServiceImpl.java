@@ -38,7 +38,7 @@ public class SignUpServiceImpl implements SignUpService {
             + "\n\nThis code is valid for the next 2 minutes. Please enter this code in the provided field on the Xcrack registration page to verify your email address and complete your account setup."
             + "\n\nIf you did not request this code, please ignore this email or contact our support team for assistance." 
             + "\n\nThank you for choosing Xcrack. We're thrilled to have you on board!" 
-            + "\n\nBest regards! \n The Xcrack Team");
+            + "\n\nBest regards! \nThe Xcrack Team");
 
             mailSender.send(message);
             System.out.println("Verification code sent successfully!");
