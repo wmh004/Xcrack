@@ -172,4 +172,16 @@ public class PostServiceImpl implements PostService {
             return Collections.emptyList();
         }
     }
+
+    @Override
+    public void likePost(int postId, int userId) {
+        // Retrieve the post from the database
+        Post post = postRepository.getPostById(postId);
+
+        // Increment the like count
+        post.setLikeCount(post.getLikeCount() + 1);
+
+        // Save the updated post back to the database
+        postRepository.save(post);
+    }
 }

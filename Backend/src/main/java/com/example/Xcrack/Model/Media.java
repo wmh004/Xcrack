@@ -2,7 +2,6 @@ package com.example.Xcrack.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

@@ -3,7 +3,6 @@ package com.example.Xcrack.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Xcrack.DTO.LikeRequest;
 import com.example.Xcrack.Model.Post;
 import com.example.Xcrack.Model.Reply;
 import com.example.Xcrack.Service.PostService;
 import com.example.Xcrack.Service.ReplyService;
+
 
 @RestController
 @RequestMapping("/posts")
@@ -27,11 +28,16 @@ public class PostController {
     @Autowired
     private ReplyService replyService;
 
-    @PostMapping("/{postId}")
-    public Post getPost(@PathVariable int postId) {
+    @PostMapping("/{postId}/like")
+    public ResponseEntity<?> likePost(@PathVariable int postId, @RequestBody LikeRequest likeRequest) {
+        postService.likePost(postId, likeRequest.getUserId());
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{postId}")
+    public Post getPostByPostId(@PathVariable int postId) {
         return postService.getPostByPostID(postId);
     }
-    
     
     @PostMapping("/{username}/create-post")
     public Post createPost(@RequestBody Post post, @PathVariable String username) {
@@ -63,7 +69,7 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-    @PostMapping("/{postId}/share")
+    @PostMapping("/{postId}/share-post")
     public ResponseEntity<Void> sharePost(@PathVariable int postId) throws Exception {
         postService.sharePost(postId);
         return ResponseEntity.ok().build();

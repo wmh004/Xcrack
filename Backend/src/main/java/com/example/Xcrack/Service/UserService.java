@@ -1,9 +1,10 @@
 package com.example.Xcrack.Service;
 
+import com.example.Xcrack.DTO.UserDetails;
 import com.example.Xcrack.Model.Post;
 import com.example.Xcrack.Model.Reply;
 import com.example.Xcrack.Model.User;
-import com.example.Xcrack.Service.Implementation.UserDetailsDTO;
+
 import java.util.List;
 
 public interface UserService {
@@ -19,6 +20,8 @@ public interface UserService {
     void unbanUser(int ID);
     void blockUser(String username, String usernameToBlock);
     void unblockUser(String username, String usernameToUnblock);
-    UserDetailsDTO getUserDetailsByUsername(String username);
+    void followUser(String username, String usernameToFollow);
+    void unfollowUser(String username, String usernameToUnfollow);
+    UserDetails getUserDetailsByUsername(String username);
 
 }

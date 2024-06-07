@@ -40,39 +40,13 @@ public class UserHashtagServiceImpl implements UserHashtagService{
     }
 
     @Transactional
-    public void addUserHashtagFromRetweet(User user, String hashtagStr) {
-        addOrUpdateUserHashtag(user, hashtagStr, 5);
-    }
-
-    @Transactional
-    public void addUserHashtagFromComment(User user, String hashtagStr) {
+    public void addUserHashtagFromReply(User user, String hashtagStr) {
         addOrUpdateUserHashtag(user, hashtagStr, 6);
     }
 
     @Transactional
     public void addUserHashtagFromLike(User user, String hashtagStr) {
         addOrUpdateUserHashtag(user, hashtagStr, 4);
-    }
-
-    @Transactional
-    public void addUserHashtagFromBookmark(User user, String hashtagStr) {
-        addOrUpdateUserHashtag(user, hashtagStr, 3);
-    }
-
-    @Transactional
-    public void addUserHashtagFromShare(User user, String hashtagStr) {
-        addOrUpdateUserHashtag(user, hashtagStr, 2);
-    }
-
-    @Transactional
-    public void reduceUserHashtagValueFromDislike(User user, String hashtagStr) {
-        Optional<UserHashtag> optionalUserHashtag = userHashtagRepository.findByUserUsernameAndHashtagHashtagIgnoreCase(user.getUsername(), hashtagStr);
-        if (optionalUserHashtag.isPresent()) {
-            UserHashtag userHashtag = optionalUserHashtag.get();
-            userHashtag.setValue(userHashtag.getValue() - 5);
-            userHashtagRepository.save(userHashtag);
-        }
-        else{}
     }
 
     private void addOrUpdateUserHashtag(User user, String hashtagStr, int valueToAdd) {
@@ -108,4 +82,30 @@ public class UserHashtagServiceImpl implements UserHashtagService{
             userHashtagRepository.save(newHashtag);
         }
     }
+
+    // @Transactional
+    // public void addUserHashtagFromRetweet(User user, String hashtagStr) {
+    //     addOrUpdateUserHashtag(user, hashtagStr, 5);
+    // }
+
+    // @Transactional
+    // public void addUserHashtagFromBookmark(User user, String hashtagStr) {
+    //     addOrUpdateUserHashtag(user, hashtagStr, 3);
+    // }
+
+    // @Transactional
+    // public void addUserHashtagFromShare(User user, String hashtagStr) {
+    //     addOrUpdateUserHashtag(user, hashtagStr, 2);
+    // }
+
+    // @Transactional
+    // public void reduceUserHashtagValueFromDislike(User user, String hashtagStr) {
+    //     Optional<UserHashtag> optionalUserHashtag = userHashtagRepository.findByUserUsernameAndHashtagHashtagIgnoreCase(user.getUsername(), hashtagStr);
+    //     if (optionalUserHashtag.isPresent()) {
+    //         UserHashtag userHashtag = optionalUserHashtag.get();
+    //         userHashtag.setValue(userHashtag.getValue() - 5);
+    //         userHashtagRepository.save(userHashtag);
+    //     }
+    //     else{}
+    // }
 }

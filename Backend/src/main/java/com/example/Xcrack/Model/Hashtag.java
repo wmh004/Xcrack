@@ -19,6 +19,9 @@ public class Hashtag {
     @OneToMany(mappedBy = "hashtag")
     private List<UserHashtag> userHashtags = new ArrayList<>();
 
+    @Column(nullable = false)
+    private int count; 
+
     // Getter and Setter
 
     public int getID() {
@@ -40,5 +43,14 @@ public class Hashtag {
     public void setUserHashtags(List<UserHashtag> userHashtags) {
         this.userHashtags = userHashtags;
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     
 }

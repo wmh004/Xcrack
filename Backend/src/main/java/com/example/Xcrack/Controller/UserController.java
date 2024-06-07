@@ -1,12 +1,12 @@
 package com.example.Xcrack.Controller;
 
+import com.example.Xcrack.DTO.UserDetails;
 import com.example.Xcrack.Model.Reply;
 import com.example.Xcrack.Model.User;
 import com.example.Xcrack.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.Xcrack.Service.Implementation.UserDetailsDTO;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +29,8 @@ public class UserController {
     }    
 
     @GetMapping("/{username}/details")
-    public ResponseEntity<UserDetailsDTO> getUserDetails(@PathVariable String username) {
-        UserDetailsDTO userDetails = userService.getUserDetailsByUsername(username);
+    public ResponseEntity<UserDetails> getUserDetails(@PathVariable String username) {
+        UserDetails userDetails = userService.getUserDetailsByUsername(username);
         if (userDetails != null) {
             return ResponseEntity.ok(userDetails);
         } else {

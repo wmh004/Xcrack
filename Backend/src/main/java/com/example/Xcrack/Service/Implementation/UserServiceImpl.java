@@ -1,6 +1,7 @@
 package com.example.Xcrack.Service.Implementation;
 
-import com.example.Xcrack.Exception.NotFoundException;
+import com.example.Xcrack.DTO.UserDetails;
+import com.example.Xcrack.Exception.UserNotFoundException;
 import com.example.Xcrack.Model.Post;
 import com.example.Xcrack.Model.Reply;
 import com.example.Xcrack.Model.User;
@@ -56,10 +57,10 @@ public class UserServiceImpl implements UserService {
         User userToBlock = userRepository.findByUsername(usernameToBlock);
 
         if (user == null)
-            throw new NotFoundException("User not found: " + username);
+            throw new UserNotFoundException(username);
 
         if (userToBlock == null)
-            throw new NotFoundException("User to block not found: " + usernameToBlock);
+            throw new UserNotFoundException(usernameToBlock);
 
         if (user != null && userToBlock != null) {
             user.blockUser(userToBlock);
@@ -73,10 +74,10 @@ public class UserServiceImpl implements UserService {
         User userToUnblock = userRepository.findByUsername(usernameToUnblock);
 
         if (user == null)
-            throw new NotFoundException("User not found: " + username);
+            throw new UserNotFoundException(username);
 
         if (userToUnblock == null)
-            throw new NotFoundException("User to unblock not found: " + usernameToUnblock);
+            throw new UserNotFoundException(usernameToUnblock);
 
         if (user != null && userToUnblock != null) {
             user.unblockUser(userToUnblock);
@@ -89,7 +90,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id);
 
         if (user == null)
-            throw new NotFoundException("User not found with ID: " + id);
+            throw new UserNotFoundException(id);
         
         return user;
     }
@@ -99,7 +100,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(username);
         
         if (user == null)
-            throw new NotFoundException("User not found with username: " + username);
+            throw new UserNotFoundException(username);
 
         List<Reply> replies = user.getReplies();
         
@@ -111,7 +112,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(username);
         
         if (user == null)
-            throw new NotFoundException("User not found with username: " + username);
+            throw new UserNotFoundException(username);
 
         List<Post> posts = user.getPosts();
         
@@ -123,18 +124,46 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(username);
 
         if (user == null)
-            throw new NotFoundException("User not found with username: " + username);
+            throw new UserNotFoundException(username);
 
         return user;
     }
 
     @Override
-    public UserDetailsDTO getUserDetailsByUsername(String username) {
+    public void followUser(String username, String usernameToFollow) {
+        User user = userRepository.findByUsername(username);
+        User userToFollow = userRepository.findByUsername(usernameToFollow);
+
+        if (user == null)
+            throw new UserNotFoundException(username);
+
+        if (userToFollow == null)
+            throw new UserNotFoundException(usernameToFollow);
+
+        user.followUser(userToFollow);
+    }
+
+    @Override
+    public void unfollowUser(String username, String usernameToUnfollow) {
+        User user = userRepository.findByUsername(username);
+        User userToUnfollow = userRepository.findByUsername(usernameToUnfollow);
+
+        if (user == null)
+            throw new UserNotFoundException(username);
+
+        if (userToUnfollow == null)
+            throw new UserNotFoundException(usernameToUnfollow);
+
+        user.unfollowUser(userToUnfollow);
+    }
+
+    @Override
+    public UserDetails getUserDetailsByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new NotFoundException("User not found with username: " + username);
+            throw new UserNotFoundException(username);
         }
-        return new UserDetailsDTO(user.getUsername(), user.getName(), user.getBio(), user.getDob());
+        return new UserDetails(user.getUsername(), user.getName(), user.getBio(), user.getProfilePictureUrl(), user.getBackgroundPictureUrl(), user.getLocation(), user.getWebsiteUrl(), user.getDob(), user.getFollowers(), user.getFollowing(), user.getPosts(), user.getReplies());
     }
     
 }

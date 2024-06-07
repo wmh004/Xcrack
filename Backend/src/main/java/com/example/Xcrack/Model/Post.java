@@ -3,17 +3,10 @@ package com.example.Xcrack.Model;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -32,11 +25,6 @@ public class Post extends PostBase {
     @ElementCollection
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tag> tags = new ArrayList<>();
-
-    @ElementCollection
-    @JoinTable(name = "post_hashtags", 
-            joinColumns = @JoinColumn(name = "post_id"))
-    private Set<Hashtag> hashtags = new HashSet<>();
 
     public Post() {}
 
@@ -93,13 +81,5 @@ public class Post extends PostBase {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
-    }
-
-    public Set<Hashtag> getHashtags() {
-        return hashtags;
-    }
-
-    public void setHashtags(Set<Hashtag> hashtags) {
-        this.hashtags = hashtags;
     }
 }

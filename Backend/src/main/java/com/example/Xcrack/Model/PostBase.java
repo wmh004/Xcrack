@@ -2,13 +2,14 @@ package com.example.Xcrack.Model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalTimeConverter;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
 
@@ -47,7 +48,7 @@ public abstract class PostBase {
     private int bookmarkCount;
     private int shareCount;
     private int viewCount;
-    private double value = 0;
+    private int value = 0;
 
     @ElementCollection
     @CollectionTable(name = "user_tagged_usernames", 
@@ -95,6 +96,11 @@ public abstract class PostBase {
     @JoinColumn(name = "hashtag10_id")
     private Hashtag hashtag10;
 
+    @ElementCollection
+    @JoinTable(name = "post_hashtags", 
+            joinColumns = @JoinColumn(name = "post_id"))
+    private Set<Hashtag> hashtags = new HashSet<>();
+
     public PostBase() {}
 
     public PostBase(String content, User user) {
@@ -116,11 +122,19 @@ public abstract class PostBase {
         this.ID = ID;
     }
 
+    public Set<Hashtag> getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(Set<Hashtag> hashtags) {
+        this.hashtags = hashtags;
+    }
+
     public double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
