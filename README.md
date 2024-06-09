@@ -48,4 +48,4 @@ Used to group together related functions or methods that perform common tasks, p
 
 ## Frontend
 All of the frontend related files can be found [here](https://github.com/wmh004/Xcrack/tree/main/Frontend).
-Frontend GUI
+Frontend GUI.
