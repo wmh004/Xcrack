@@ -26,6 +26,7 @@ public class Post extends PostBase {
     private List<Media> mediaList = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Tag> tags = new ArrayList<>();
 
     @ManyToMany

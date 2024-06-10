@@ -9,5 +9,4 @@ public class XcrackApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(XcrackApplication.class, args);
 	}
-
 }
