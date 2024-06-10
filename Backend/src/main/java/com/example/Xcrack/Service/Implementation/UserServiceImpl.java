@@ -34,8 +34,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void banUser(int ID) {
-        User userToBan = userRepository.findById(ID);
+    public void banUser(String username) {
+        User userToBan = userRepository.findByUsername(username);
         if (userToBan != null) {
             userToBan.ban();
             userRepository.save(userToBan);
@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void unbanUser(int ID) {
-            User userToUnban = userRepository.findById(ID);
+    public void unbanUser(String username) {
+        User userToUnban = userRepository.findByUsername(username);
         if (userToUnban != null) {
             userToUnban.unban();
             userRepository.save(userToUnban);

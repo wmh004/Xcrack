@@ -200,7 +200,7 @@ public class User {
     }
 
     public void unban() {
-        this.unban();
+        this.banned = false;
     }
     
     // Getters and Setters

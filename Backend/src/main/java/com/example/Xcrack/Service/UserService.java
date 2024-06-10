@@ -16,8 +16,8 @@ public interface UserService {
     User getUserByUsername(String username);
     List<Reply> getRepliesByUsername(String username);
     List<Post> getPostsByUsername(String username);
-    void banUser(int ID);
-    void unbanUser(int ID);
+    void banUser(String username);
+    void unbanUser(String username);
     void blockUser(String username, String usernameToBlock);
     void unblockUser(String username, String usernameToUnblock);
     void followUser(String username, String usernameToFollow);
