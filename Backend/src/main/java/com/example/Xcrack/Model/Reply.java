@@ -8,7 +8,6 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -24,7 +23,6 @@ public class Reply extends PostBase {
     @JsonBackReference(value = "post-replies")
     private Post parentPost;
 
-    @ElementCollection
     @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Media> mediaList = new ArrayList<>();
 
