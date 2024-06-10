@@ -70,4 +70,7 @@ public class Hashtag {
     public void setPosts(Set<Post> posts){
         this.posts = posts; 
     }
+    public void incrementCount() {
+        this.count++;
+    }
 }
