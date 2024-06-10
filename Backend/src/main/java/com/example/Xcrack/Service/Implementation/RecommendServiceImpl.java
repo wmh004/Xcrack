@@ -60,15 +60,15 @@ public class RecommendServiceImpl implements RecommendService {
             
             Post post = iterator.next();
 
-        //     if (post.getUser().isBanned()) { // condition to remove posts that are from banned users
-        //         iterator.remove();
-        //         continue;
-        //     }
+            if (post.getUser().isBanned()) { // condition to remove posts that are from banned users
+                iterator.remove();
+                continue;
+            }
 
-        //     if(post.getUser().equals(user)){ // condition to remove posts that are from the user themself
-        //         iterator.remove();
-        //         continue; 
-        //     }
+            if(post.getUser().equals(user)){ // condition to remove posts that are from the user themself
+                iterator.remove();
+                continue; 
+            }
 
         //     // for (ReadPost rp : readpost) { // Loop to remove posts that have been read
         //     //     if (post.equals(rp.getPost())) {
