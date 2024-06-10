@@ -44,17 +44,17 @@ public class PostController {
         return postService.createPost(post.getContent(), username, post.getMediaList());
     }
 
-    @PostMapping("{postId}/remove-post")
+    @PostMapping("/{postId}/remove-post")
     public void removePost(@PathVariable int postId) {
         postService.removePost(postId);
     }
 
-    @PostMapping("{username}/create-reply")
+    @PostMapping("/{username}/create-reply")
     public Reply createReply(@RequestBody Reply reply, @PathVariable String username) {
         return replyService.createReply(reply.getContent(), username, reply.getParentPost().getId(), reply.getMediaList());
     }
 
-    @PostMapping("{postId}/remove-reply")
+    @PostMapping("/{postId}/remove-reply")
     public void removeReply(@PathVariable int replyId) {
         replyService.removeReply(replyId);
     }
