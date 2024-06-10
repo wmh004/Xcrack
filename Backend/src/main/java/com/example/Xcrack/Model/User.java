@@ -3,6 +3,7 @@ package com.example.Xcrack.Model;
 import jakarta.persistence.*;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.nio.charset.StandardCharsets;
@@ -47,7 +48,7 @@ public class User {
     private List<User> followers = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonIgnore
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -87,6 +88,7 @@ public class User {
     private List<String> taggingPreferences;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<UserHashtag> userHashtags = new ArrayList<>();
 
     public User() {}

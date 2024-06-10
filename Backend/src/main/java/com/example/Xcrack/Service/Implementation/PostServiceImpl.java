@@ -101,12 +101,10 @@ public class PostServiceImpl implements PostService {
     }
 
     private void processHashtags(User user, Set<String> hashtags, Post post) {
-        Set<Hashtag> contentHashtag = new HashSet<>();
         for (String hashtag : hashtags) {
-            contentHashtag.add(hashtagService.addHashtag(hashtag));
+            post.setHashtags(hashtagService.addHashtag(hashtag));
             userHashtagServiceImpl.addUserHashtagFromPost(user, hashtag);
         }
-        post.setHashtags(contentHashtag);
     }
 
     @Override

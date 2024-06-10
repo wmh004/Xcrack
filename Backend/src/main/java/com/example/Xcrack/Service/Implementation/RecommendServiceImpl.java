@@ -43,9 +43,8 @@ public class RecommendServiceImpl implements RecommendService {
 
     public List<Post> getPosts(int userId) {
         List<Post> posts = postRepository.findAll();
-        // User user = userRepository.findById(userId);
-        // // List<ReadPost> readpost = readPostRepository.findByUser(user);
-        // // List<ReadPost> readpost = readPostRepository.findByUser(user);
+        User user = userRepository.findById(userId);
+        // List<ReadPost> readpost = readPostRepository.findByUser(user);
         // List<User> blockedUsers = userRepository.findBlockedUsersByUsername(user.getUsername());
         // List<FollowingStatus> followStatus = followingStatusRepository.findByFollower(user);
         // List<UserHashtag> userHashtags = userHashtagRepository.findByUser(user);
@@ -128,7 +127,7 @@ public class RecommendServiceImpl implements RecommendService {
         // // Sorting the list using the custom comparator
         // posts.sort(postComparator);
 
-        List<Post> returnList = posts.subList(0, 20); // Returns the first 20 posts
+        List<Post> returnList = posts.subList(0, 6); // Returns the first 20 posts
 
         // for(Post addNewReadPost : returnList){
         //     readPostServiceImpl.AddReadPost(addNewReadPost, user);

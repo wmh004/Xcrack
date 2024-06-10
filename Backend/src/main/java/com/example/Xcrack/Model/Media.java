@@ -1,6 +1,7 @@
 package com.example.Xcrack.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,7 +28,7 @@ public class Media {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    @JsonBackReference
+    @JsonIgnore
     private Post post;
 
     @ManyToOne

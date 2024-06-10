@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -24,7 +25,7 @@ public class Post extends PostBase {
 
     @ElementCollection
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonIgnore
     private List<Media> mediaList = new ArrayList<>();
 
     @ElementCollection
@@ -36,7 +37,7 @@ public class Post extends PostBase {
         name = "post_hashtag",
         joinColumns = @JoinColumn(name = "post_id"),
         inverseJoinColumns = @JoinColumn(name = "hashtag_id"))
-    @JsonManagedReference
+        @JsonIgnore
     private Set<Hashtag> hashtags = new HashSet<>();
 
     public Post() {}
@@ -49,8 +50,8 @@ public class Post extends PostBase {
         return hashtags;
     }
 
-    public void setHashtags(Set<Hashtag> hashtags) {
-        this.hashtags = hashtags;
+    public void setHashtags(Hashtag hashtag) {
+        this.hashtags.add(hashtag);
     }
 
     public void addReply(Reply reply) {

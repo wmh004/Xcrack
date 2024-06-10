@@ -19,7 +19,7 @@ public class HashtagServiceImpl implements HashtagService{
     public Hashtag addHashtag(String hashtag) {
         Hashtag existingHashtag = hashtagRepository.findByHashtag(hashtag);
         if (getAllHashtags().contains(existingHashtag)) {
-            return null;
+            return hashtagRepository.findByHashtag(hashtag);
         } else {
             Hashtag newHashtag = new Hashtag();
             newHashtag.setHashtag(hashtag);
