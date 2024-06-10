@@ -1,9 +1,11 @@
 package com.example.Xcrack.Model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "hashtag")
@@ -21,6 +23,9 @@ public class Hashtag {
 
     @Column(nullable = false)
     private int count; 
+
+    @ManyToMany(mappedBy = "hashtags")
+    private Set<Post> posts = new HashSet<>();
 
     // Getter and Setter
 
@@ -52,5 +57,11 @@ public class Hashtag {
         this.count = count;
     }
 
-    
+    public Set<Post> getPosts(){
+        return this.posts; 
+    }
+
+    public void setPosts(Set<Post> posts){
+        this.posts = posts; 
+    }
 }

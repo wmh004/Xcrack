@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.Xcrack.Model.FollowingStatus;
+import com.example.Xcrack.Model.Hashtag;
 import com.example.Xcrack.Model.Post;
 import com.example.Xcrack.Model.ReadPost;
 import com.example.Xcrack.Model.User;
@@ -37,9 +38,13 @@ public class RecommendServiceImpl implements RecommendService {
     @Autowired
     private UserHashtagRepository userHashtagRepository;
 
+    // @Autowired
+    // private ReadPostServiceImpl readPostServiceImpl; 
+
     public List<Post> getPosts(int userId) {
         List<Post> posts = postRepository.findAll();
         User user = userRepository.findById(userId);
+        // List<ReadPost> readpost = readPostRepository.findByUser(user);
         List<ReadPost> readpost = readPostRepository.findByUser(user);
         List<User> blockedUsers = userRepository.findBlockedUsersByUsername(user.getUsername());
         List<FollowingStatus> followStatus = followingStatusRepository.findByFollower(user);
@@ -66,13 +71,13 @@ public class RecommendServiceImpl implements RecommendService {
                 continue; 
             }
 
-            for (ReadPost rp : readpost) { // Loop to remove posts that have been read
-                if (post.equals(rp.getPost())) {
-                    iterator.remove();
-                    RPValue = true;
-                    break;
-                }
-            }
+            // for (ReadPost rp : readpost) { // Loop to remove posts that have been read
+            //     if (post.equals(rp.getPost())) {
+            //         iterator.remove();
+            //         RPValue = true;
+            //         break;
+            //     }
+            // }
 
             if (RPValue) {
                 continue;
@@ -105,14 +110,10 @@ public class RecommendServiceImpl implements RecommendService {
 
             for (UserHashtag uh : userHashtags) { // Loop to calculate value of post based on hashtag
                 
-
-                if (post.getHashtag1() == null) {
-                    break;
-                }
-
-                if (post.getHashtag1().equals(uh.getHashtag())) {
-                    post.setValue(uh.getValue());
-                    continue;
+                for(Hashtag hashtag : post.getHashtags()){
+                    if(uh.getHashtag().equals(hashtag)){
+                        post.setValue(uh.getValue());
+                    }
                 }
             }            
         }
@@ -129,6 +130,10 @@ public class RecommendServiceImpl implements RecommendService {
 
         List<Post> returnList = posts.subList(0, 21); // Returns the first 20 posts
 
+        // for(Post addNewReadPost : returnList){
+        //     readPostServiceImpl.AddReadPost(addNewReadPost, user);
+        // }
+        
         return returnList;
     }
 }

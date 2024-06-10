@@ -62,7 +62,7 @@ public class PostServiceImpl implements PostService {
         Set<String> hashtags = extractHashtags(content);
         Set<String> mentions = extractMentions(content);
 
-        processHashtags(user, hashtags);
+        processHashtags(user, hashtags, post);
         processMentions(user, mentions, post.getId());
 
         user.addPost(post);
@@ -100,11 +100,13 @@ public class PostServiceImpl implements PostService {
         }
     }
 
-    private void processHashtags(User user, Set<String> hashtags) {
+    private void processHashtags(User user, Set<String> hashtags, Post post) {
+        Set<Hashtag> contentHashtag = new HashSet<>();
         for (String hashtag : hashtags) {
-            hashtagService.addHashtag(hashtag);
+            contentHashtag.add(hashtagService.addHashtag(hashtag));
             userHashtagServiceImpl.addUserHashtagFromPost(user, hashtag);
         }
+        post.setHashtags(contentHashtag);
     }
 
     @Override
