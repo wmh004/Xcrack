@@ -18,10 +18,12 @@ public class FollowingStatus {
 
     @ManyToOne
     @JoinColumn(name = "follower_id", nullable = false)
+    
     private User follower;
 
     @ManyToOne
     @JoinColumn(name = "following_id", nullable = false)
+    
     private User following;
 
     private int status; // 1 for following, -1 for unfollowed

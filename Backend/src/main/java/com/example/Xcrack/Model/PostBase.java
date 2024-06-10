@@ -29,9 +29,9 @@ public abstract class PostBase {
     @Convert(converter = LocalTimeConverter.class)
     private LocalTime timeCreated;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     @Column(nullable = false)
@@ -47,6 +47,7 @@ public abstract class PostBase {
     private int shareCount;
     private int viewCount;
     private int value = 0;
+    private boolean deleted = false;
 
     @ElementCollection
     @CollectionTable(name = "user_tagged_usernames", 
@@ -185,6 +186,14 @@ public abstract class PostBase {
 
     public void setTaggedUsername(List<String> taggedUsername) {
         this.taggedUsername = taggedUsername;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
 }
