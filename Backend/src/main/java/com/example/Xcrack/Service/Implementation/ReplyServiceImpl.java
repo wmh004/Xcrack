@@ -52,13 +52,13 @@ public class ReplyServiceImpl implements ReplyService {
             throw new NotFoundException("Parent post not found with ID: " + parentPostId);
 
         Reply reply = new Reply(content, user, parentPost);
-        reply.setParentPost(parentPost);
 
         if (mediaList != null) {
             reply.setMediaList(mediaList);
             mediaList.forEach(media -> media.setReply(reply));
-        } else 
+        } else {
             reply.setMediaList(null);
+        }
 
         Set<String> hashtags = extractHashtags(content);
         Set<String> mentions = extractMentions(content);
@@ -66,7 +66,7 @@ public class ReplyServiceImpl implements ReplyService {
         for (String hashtag : hashtags) {
             hashtagService.addHashtag(hashtag);
         }
-        
+
         processMentions(user, mentions, reply.getId());
 
         parentPost.addReply(reply);
@@ -110,7 +110,8 @@ public class ReplyServiceImpl implements ReplyService {
         for (String username : mentions) {
             User mentionedUser = userRepository.findByUsername(username);
             if (mentionedUser != null) {
-                notificationService.createNotification(mentionedUser, (user.getUsername() + " mentioned you in a post"), postID);
+                notificationService.createNotification(mentionedUser, (user.getUsername() + " mentioned you in a post"),
+                        postID);
             }
         }
     }

@@ -15,11 +15,12 @@ public class Post extends PostBase {
 
     @ElementCollection
     @OneToMany(mappedBy = "parentPost", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "post-replies")
     private List<Reply> replies = new ArrayList<>();
 
     @ElementCollection
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "post-media")
     private List<Media> mediaList = new ArrayList<>();
 
     @ElementCollection

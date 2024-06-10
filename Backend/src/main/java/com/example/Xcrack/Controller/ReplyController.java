@@ -19,9 +19,7 @@ public class ReplyController {
 
     @PostMapping("/create-reply")
     public Reply createReply(@RequestBody Reply reply) {
-        Reply saveReply = replyService.createReply(reply.getContent(), reply.getUsername(), reply.getParentPost().getId(), reply.getMediaList());        
-        return saveReply;
+        return replyService.createReply(reply.getContent(), reply.getUsername(), reply.getParentPost().getId(), reply.getMediaList());
     }
-
-    
 }
+

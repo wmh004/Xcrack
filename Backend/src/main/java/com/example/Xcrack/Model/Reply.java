@@ -3,6 +3,8 @@ package com.example.Xcrack.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -15,6 +17,7 @@ public class Reply extends PostBase {
 
     @ManyToOne
     @JoinColumn(name = "parent_post_id", nullable = false)
+    @JsonBackReference(value = "post-replies")
     private Post parentPost;
 
     @ElementCollection
