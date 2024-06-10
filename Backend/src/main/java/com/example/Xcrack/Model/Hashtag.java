@@ -7,6 +7,9 @@ import jakarta.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "hashtag")
 public class Hashtag {
@@ -19,12 +22,14 @@ public class Hashtag {
     private String hashtag;
 
     @OneToMany(mappedBy = "hashtag")
+    @JsonManagedReference
     private List<UserHashtag> userHashtags = new ArrayList<>();
 
     @Column(nullable = false)
     private int count; 
 
     @ManyToMany(mappedBy = "hashtags")
+    @JsonBackReference
     private Set<Post> posts = new HashSet<>();
 
     // Getter and Setter

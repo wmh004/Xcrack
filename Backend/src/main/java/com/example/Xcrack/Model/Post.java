@@ -35,8 +35,8 @@ public class Post extends PostBase {
     @JoinTable(
         name = "post_hashtag",
         joinColumns = @JoinColumn(name = "post_id"),
-        inverseJoinColumns = @JoinColumn(name = "hashtag_id")
-    )
+        inverseJoinColumns = @JoinColumn(name = "hashtag_id"))
+    @JsonManagedReference
     private Set<Hashtag> hashtags = new HashSet<>();
 
     public Post() {}
