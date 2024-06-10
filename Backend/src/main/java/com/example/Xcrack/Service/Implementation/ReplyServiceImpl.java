@@ -122,4 +122,21 @@ public class ReplyServiceImpl implements ReplyService {
             }
         }
     }
+
+    @Override
+    public List<Reply> getRepliesByUsername(String username) {
+        return replyRepository.getReplyListByUsername(username);
+    }
+
+    @Override
+    public void likeReply(int replyId, int userId) {
+        // Retrieve the post from the database
+        Reply reply = replyRepository.getReplyById(replyId);
+
+        // Increment the like count
+        reply.setLikeCount(reply.getLikeCount() + 1);
+
+        // Save the updated post back to the database
+        replyRepository.save(reply);
+    }
 }
