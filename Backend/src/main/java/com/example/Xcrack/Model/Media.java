@@ -28,11 +28,12 @@ public class Media {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    @JsonIgnore
+    @JsonBackReference(value = "post-media")
     private Post post;
 
     @ManyToOne
     @JoinColumn(name = "reply_id")
+    @JsonBackReference(value = "reply-media")
     private Reply reply;
 
     @ManyToOne
