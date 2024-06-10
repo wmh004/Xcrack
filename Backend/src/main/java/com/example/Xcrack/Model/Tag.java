@@ -1,5 +1,7 @@
 package com.example.Xcrack.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +14,7 @@ public class Tag {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
+    @JsonBackReference(value = "post-tags")
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)

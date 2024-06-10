@@ -38,7 +38,7 @@ public class PostServiceImpl implements PostService {
     private NotificationService notificationService;
 
     @Autowired
-    private UserHashtagServiceImpl userHashtagServiceImpl; 
+    private UserHashtagServiceImpl userHashtagServiceImpl;
 
     @Autowired
     private HashtagRepository hashtagRepository;
@@ -56,7 +56,7 @@ public class PostServiceImpl implements PostService {
         if (mediaList != null) {
             post.setMediaList(mediaList);
             mediaList.forEach(media -> media.setPost(post));
-        } else  
+        } else
             post.setMediaList(null);
 
         Set<String> hashtags = extractHashtags(content);
@@ -66,7 +66,7 @@ public class PostServiceImpl implements PostService {
         processMentions(user, mentions, post.getId());
 
         user.addPost(post);
-        
+
         return postRepository.save(post);
     }
 
@@ -95,7 +95,8 @@ public class PostServiceImpl implements PostService {
         for (String username : mentions) {
             User mentionedUser = userRepository.findByUsername(username);
             if (mentionedUser != null) {
-                notificationService.createNotification(mentionedUser, (user.getUsername() + " mentioned you in a post"), postID);
+                notificationService.createNotification(mentionedUser, (user.getUsername() + " mentioned you in a post"),
+                        postID);
             }
         }
     }
@@ -116,7 +117,12 @@ public class PostServiceImpl implements PostService {
 
         post.setDeleted(true);
         post.setContent("This post has been deleted");
-        post.setMediaList(null);
+
+        // Clear the mediaList to ensure orphan removal
+        if (post.getMediaList() != null) {
+            post.getMediaList().clear();
+        }
+
         postRepository.save(post);
     }
 

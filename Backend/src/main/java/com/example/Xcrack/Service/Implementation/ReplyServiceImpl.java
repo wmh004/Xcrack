@@ -77,13 +77,19 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public void removeReply(int replyId) {
         Reply reply = replyRepository.getReplyById(replyId);
-
-        if (reply == null)
+    
+        if (reply == null) {
             throw new NotFoundException("Reply not found with ID: " + replyId);
-
+        }
+    
         reply.setDeleted(true);
         reply.setContent("This reply has been deleted");
-        reply.setMediaList(null);
+    
+        // Clear the mediaList to ensure orphan removal
+        if (reply.getMediaList() != null) {
+            reply.getMediaList().clear();
+        }
+    
         replyRepository.save(reply);
     }
 

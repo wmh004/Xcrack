@@ -7,7 +7,7 @@ import com.example.Xcrack.Model.Reply;
 
 public interface ReplyRepository extends JpaRepository<Reply, Integer> {
 
-    @Query("SELECT p FROM Post p WHERE p.id = :ID AND p.deleted = false")
-    public Reply getReplyById(int ID);
+    @Query("SELECT r FROM Reply r WHERE r.id = :id AND r.deleted = false")
+    public Reply getReplyById(int id);
 
 }

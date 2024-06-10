@@ -1,6 +1,7 @@
 package com.example.Xcrack.Model;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -27,18 +28,16 @@ public class Post extends PostBase {
     private List<Media> mediaList = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "post-tags")
     private List<Tag> tags = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(
-        name = "post_hashtag",
-        joinColumns = @JoinColumn(name = "post_id"),
-        inverseJoinColumns = @JoinColumn(name = "hashtag_id"))
-        @JsonIgnore
+    @JoinTable(name = "post_hashtag", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "hashtag_id"))
+    @JsonIgnore
     private Set<Hashtag> hashtags = new HashSet<>();
 
-    public Post() {}
+    public Post() {
+    }
 
     public Post(String content, User user) {
         super(content, user);
