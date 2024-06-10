@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.Xcrack.Model.FollowingStatus;
+import com.example.Xcrack.Model.Hashtag;
 import com.example.Xcrack.Model.Post;
 import com.example.Xcrack.Model.ReadPost;
 import com.example.Xcrack.Model.User;
@@ -37,98 +38,102 @@ public class RecommendServiceImpl implements RecommendService {
     @Autowired
     private UserHashtagRepository userHashtagRepository;
 
+    // @Autowired
+    // private ReadPostServiceImpl readPostServiceImpl; 
+
     public List<Post> getPosts(int userId) {
         List<Post> posts = postRepository.findAll();
-        User user = userRepository.findById(userId);
-        List<ReadPost> readpost = readPostRepository.findByUser(user);
-        List<User> blockedUsers = userRepository.findBlockedUsersByUsername(user.getUsername());
-        List<FollowingStatus> followStatus = followingStatusRepository.findByFollower(user);
-        List<UserHashtag> userHashtags = userHashtagRepository.findByUser(user);
+        // User user = userRepository.findById(userId);
+        // // List<ReadPost> readpost = readPostRepository.findByUser(user);
+        // // List<ReadPost> readpost = readPostRepository.findByUser(user);
+        // List<User> blockedUsers = userRepository.findBlockedUsersByUsername(user.getUsername());
+        // List<FollowingStatus> followStatus = followingStatusRepository.findByFollower(user);
+        // List<UserHashtag> userHashtags = userHashtagRepository.findByUser(user);
 
-        Iterator<Post> iterator = posts.iterator();
+        // Iterator<Post> iterator = posts.iterator();
 
-        // First loop to remove all the posts from banned users, read post, blocked user and unfollowed user -
-        // then adds the value of each hashtag 
-        while (iterator.hasNext()) { 
-            boolean RPValue = false; // flag to continue to the next post if the post has been read (ReadPostValue)
-            boolean BUValue = false; // flag to continue to the next post if the post is from a blocked uer (BlockedUserValue)
-            boolean FSValue = false; // flag to continue to the next post if the post is from an unfollowed user (FollowStatusValue)
+        // // First loop to remove all the posts from banned users, read post, blocked user and unfollowed user -
+        // // then adds the value of each hashtag 
+        // while (iterator.hasNext()) { 
+        //     boolean RPValue = false; // flag to continue to the next post if the post has been read (ReadPostValue)
+        //     boolean BUValue = false; // flag to continue to the next post if the post is from a blocked uer (BlockedUserValue)
+        //     boolean FSValue = false; // flag to continue to the next post if the post is from an unfollowed user (FollowStatusValue)
             
-            Post post = iterator.next();
+        //     Post post = iterator.next();
 
-            if (post.getUser().isBanned()) { // condition to remove posts that are from banned users
-                iterator.remove();
-                continue;
-            }
+        //     if (post.getUser().isBanned()) { // condition to remove posts that are from banned users
+        //         iterator.remove();
+        //         continue;
+        //     }
 
-            if(post.getUser().equals(user)){ // condition to remove posts that are from the user themself
-                iterator.remove();
-                continue; 
-            }
+        //     if(post.getUser().equals(user)){ // condition to remove posts that are from the user themself
+        //         iterator.remove();
+        //         continue; 
+        //     }
 
-            for (ReadPost rp : readpost) { // Loop to remove posts that have been read
-                if (post.equals(rp.getPost())) {
-                    iterator.remove();
-                    RPValue = true;
-                    break;
-                }
-            }
+        //     // for (ReadPost rp : readpost) { // Loop to remove posts that have been read
+        //     //     if (post.equals(rp.getPost())) {
+        //     //         iterator.remove();
+        //     //         RPValue = true;
+        //     //         break;
+        //     //     }
+        //     // }
 
-            if (RPValue) {
-                continue;
-            }
+        //     if (RPValue) {
+        //         continue;
+        //     }
 
-            for (User bu : blockedUsers) { // Loop to remove posts that are from blocked user
-                if (post.getUser().getUsername().equals(bu.getUsername())) {
-                    iterator.remove();
-                    BUValue = true;
-                    break;
-                }
-            }
+        //     for (User bu : blockedUsers) { // Loop to remove posts that are from blocked user
+        //         if (post.getUser().getUsername().equals(bu.getUsername())) {
+        //             iterator.remove();
+        //             BUValue = true;
+        //             break;
+        //         }
+        //     }
 
-            if (BUValue) {
-                continue;
-            }
+        //     if (BUValue) {
+        //         continue;
+        //     }
 
-            for (FollowingStatus fs : followStatus) { // Loop to remove posts that are from unfollowed user
-                if (fs.getStatus() == -1) {
-                    iterator.remove();
-                    FSValue = true;
-                    break;
-                }
-            }
+        //     for (FollowingStatus fs : followStatus) { // Loop to remove posts that are from unfollowed user
+        //         if (fs.getStatus() == -1) {
+        //             iterator.remove();
+        //             FSValue = true;
+        //             break;
+        //         }
+        //     }
 
-            if (FSValue) {
-                continue;
-            }
+        //     if (FSValue) {
+        //         continue;
+        //     }
 
 
-            for (UserHashtag uh : userHashtags) { // Loop to calculate value of post based on hashtag
+        //     for (UserHashtag uh : userHashtags) { // Loop to calculate value of post based on hashtag
                 
+        //         for(Hashtag hashtag : post.getHashtags()){
+        //             if(uh.getHashtag().equals(hashtag)){
+        //                 post.setValue(uh.getValue());
+        //             }
+        //         }
+        //     }            
+        // }
 
-                if (post.getHashtag1() == null) {
-                    break;
-                }
+        // // Custom comparator for sorting posts
+        // Comparator<Post> postComparator = Comparator
+        //         .comparingDouble(Post::getValue).reversed()
+        //         .thenComparingInt(Post::getRepostCount).reversed()
+        //         .thenComparingInt(Post::getReplyCount).reversed()
+        //         .thenComparingInt(Post::getViewCount).reversed();
 
-                if (post.getHashtag1().equals(uh.getHashtag())) {
-                    post.setValue(uh.getValue());
-                    continue;
-                }
-            }            
-        }
+        // // Sorting the list using the custom comparator
+        // posts.sort(postComparator);
 
-        // Custom comparator for sorting posts
-        Comparator<Post> postComparator = Comparator
-                .comparingDouble(Post::getValue).reversed()
-                .thenComparingInt(Post::getRepostCount).reversed()
-                .thenComparingInt(Post::getReplyCount).reversed()
-                .thenComparingInt(Post::getViewCount).reversed();
+        List<Post> returnList = posts.subList(0, 20); // Returns the first 20 posts
 
-        // Sorting the list using the custom comparator
-        posts.sort(postComparator);
-
-        List<Post> returnList = posts.subList(0, 21); // Returns the first 20 posts
-
+        // for(Post addNewReadPost : returnList){
+        //     readPostServiceImpl.AddReadPost(addNewReadPost, user);
+        // }
+        
         return returnList;
     }
 }

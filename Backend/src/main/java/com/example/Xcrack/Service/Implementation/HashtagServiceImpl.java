@@ -23,7 +23,8 @@ public class HashtagServiceImpl implements HashtagService{
         } else {
             Hashtag newHashtag = new Hashtag();
             newHashtag.setHashtag(hashtag);
-            return hashtagRepository.save(newHashtag);
+            hashtagRepository.save(newHashtag);
+            return newHashtag; 
         }
     }
 

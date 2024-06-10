@@ -1,9 +1,14 @@
 package com.example.Xcrack.Model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "hashtag")
@@ -17,10 +22,15 @@ public class Hashtag {
     private String hashtag;
 
     @OneToMany(mappedBy = "hashtag")
+    @JsonManagedReference
     private List<UserHashtag> userHashtags = new ArrayList<>();
 
     @Column(nullable = false)
     private int count; 
+
+    @ManyToMany(mappedBy = "hashtags")
+    @JsonBackReference
+    private Set<Post> posts = new HashSet<>();
 
     // Getter and Setter
 
@@ -52,5 +62,11 @@ public class Hashtag {
         this.count = count;
     }
 
-    
+    public Set<Post> getPosts(){
+        return this.posts; 
+    }
+
+    public void setPosts(Set<Post> posts){
+        this.posts = posts; 
+    }
 }
