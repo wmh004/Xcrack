@@ -1,7 +1,6 @@
 package com.example.Xcrack.Model;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -18,16 +17,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class Post extends PostBase {
 
-    @ElementCollection
     @OneToMany(mappedBy = "parentPost", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Reply> replies = new ArrayList<>();
 
-    @ElementCollection
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Media> mediaList = new ArrayList<>();
 
-    @ElementCollection
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tag> tags = new ArrayList<>();
 

@@ -116,9 +116,10 @@ public class PostServiceImpl implements PostService {
         if (post == null)
             throw new NotFoundException("Post not found with ID: " + postId);
 
-        User user = post.getUser();
-        user.removePost(post);
-        postRepository.delete(post);
+        post.setDeleted(true);
+        post.setContent("This post has been deleted");
+        post.setMediaList(null);
+        postRepository.save(post);
     }
 
     @Override

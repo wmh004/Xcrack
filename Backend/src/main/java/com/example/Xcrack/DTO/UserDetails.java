@@ -16,6 +16,10 @@ public class UserDetails {
     private String location;
     private String websiteUrl;
     private LocalDate dob;
+    private List<Integer> followersId;
+    private List<Integer> followingId;
+    private List<Integer> postsId;
+    private List<Integer> repliesId;
     private List<User> followers;
     private List<User> following;
     private List<Post> posts;
@@ -148,6 +152,38 @@ public class UserDetails {
 
     public void setFollowers(List<User> followers) {
         this.followers = followers;
+    }
+
+    public List<Integer> getFollowersId() {
+        return followersId;
+    }
+
+    public void setFollowersId(List<Integer> followersId) {
+        this.followersId = followersId;
+    }
+
+    public List<Integer> getFollowingId() {
+        return followingId;
+    }
+
+    public void setFollowingId(List<Integer> followingId) {
+        this.followingId = followingId;
+    }
+
+    public List<Integer> getPostsId() {
+        return postsId;
+    }
+
+    public void setPostsId(List<Integer> postsId) {
+        this.postsId = postsId;
+    }
+
+    public List<Integer> getRepliesId() {
+        return repliesId;
+    }
+
+    public void setRepliesId(List<Integer> repliesId) {
+        this.repliesId = repliesId;
     }
 
     

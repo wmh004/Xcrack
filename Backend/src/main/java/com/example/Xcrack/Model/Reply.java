@@ -5,8 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -19,9 +20,9 @@ public class Reply extends PostBase {
 
     @ManyToOne
     @JoinColumn(name = "parent_post_id", nullable = false)
+    @JsonIgnore
     private Post parentPost;
 
-    @ElementCollection
     @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Media> mediaList = new ArrayList<>();
 

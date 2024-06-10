@@ -81,9 +81,10 @@ public class ReplyServiceImpl implements ReplyService {
         if (reply == null)
             throw new NotFoundException("Reply not found with ID: " + replyId);
 
-        User user = reply.getUser();
-        user.removeReply(reply);
-        replyRepository.delete(reply);
+        reply.setDeleted(true);
+        reply.setContent("This reply has been deleted");
+        reply.setMediaList(null);
+        replyRepository.save(reply);
     }
 
     private Set<String> extractHashtags(String content) {
