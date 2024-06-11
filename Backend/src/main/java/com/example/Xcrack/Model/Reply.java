@@ -48,4 +48,6 @@ public class Reply extends PostBase {
     public void setHashtags(Hashtag hashtag) {
         this.hashtags.add(hashtag);
     }
+
+    
 }

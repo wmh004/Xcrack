@@ -152,4 +152,9 @@ public class ReplyServiceImpl implements ReplyService {
     public Reply getReplyById(int ID) {
         return replyRepository.getReplyById(ID);
     }
+  
+    @Override
+    public List<Reply> getRepliesByParentId(int parentPostId) {
+        return replyRepository.getRepliesByParentId(parentPostId);
+    }
 }

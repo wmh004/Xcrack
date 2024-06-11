@@ -35,8 +35,8 @@ const Foryou = () => {
   const transformData = (apiData) => {
     return apiData.map((item) => {
       return {
-        username: item.username,
-        account_name: item.name, // Assuming "name" from API corresponds to "account_name" in your frontend
+        username: item.name,
+        account_name: item.username, // Assuming "name" from API corresponds to "account_name" in your frontend
         time: item.timeCreated, // You may need to format this according to your frontend's requirements
         captions: item.content,
         comment_count: item.replyCount,
@@ -45,6 +45,7 @@ const Foryou = () => {
         view_count: item.viewCount,
         save_count: item.bookmarkCount, // Assuming "bookmarkCount" from API corresponds to "save_count" in your frontend
         media: selectedFiles, // You'll need to fill this based on your selected files
+        id: item.id,
       };
     });
   };
@@ -52,7 +53,7 @@ const Foryou = () => {
   const fetchPosts = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/recommend/posts?userId=${encodeURIComponent(profileData.id)}`
+        `http://localhost:8080/recommend/posts?username=${encodeURIComponent(profileData.username)}`
       );
       const data = await response.json();
       const transformedData = transformData(data);

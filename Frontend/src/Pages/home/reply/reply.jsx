@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./replystyles.css";
 import Tweet from "../../../Components/tweet/tweet";
 import Replyheader from "./replyheader";
@@ -11,44 +11,45 @@ const Reply = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const { item } = Location.state;
-  const replyItem = [
-    {
-      username: "Rep",
-      account_name: "@reply1",
-      time: "15h",
-      captions: "erm what the sigma",
-      comment_count: "2",
-      rt_count: "2",
-      like_count: "2",
-      view_count: "161K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "Rep",
-      account_name: "@reply2",
-      time: "15h",
-      captions: "real",
-      comment_count: "2",
-      rt_count: "2",
-      like_count: "2",
-      view_count: "161K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "Rep",
-      account_name: "@reply3",
-      time: "15h",
-      captions: "I edge to this, skibbidy toilet",
-      comment_count: "2",
-      rt_count: "2",
-      like_count: "2",
-      view_count: "161K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-  ];
+
+  const [replies, setReplies] = useState([]);
+  const transformData = (apiData) => {
+    return apiData.map((item) => {
+      return {
+        username: item.name,
+        account_name: item.username, // Assuming "name" from API corresponds to "account_name" in your frontend
+        time: item.timeCreated, // You may need to format this according to your frontend's requirements
+        captions: item.content,
+        comment_count: item.replyCount,
+        rt_count: item.repostCount,
+        like_count: item.likeCount,
+        view_count: item.viewCount,
+        save_count: item.bookmarkCount, // Assuming "bookmarkCount" from API corresponds to "save_count" in your frontend
+        media: selectedFiles, // You'll need to fill this based on your selected files
+      };
+    });
+  };
+
+  const fetchReplies = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/replies/byparentid/${encodeURIComponent(item.id)}`
+      );
+      const data = await response.json();
+      const transformedData = transformData(data);
+      setReplies(transformedData);
+    } catch (error) {
+      console.error("Error fetching replies:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchReplies();
+  }, []); // Empty dependency array means it will only run once, similar to componentDidMount
+
+  useEffect(() => {
+    console.log("Replies after update:", replies);
+  }, [replies]); // Empty dependency array means it will only run once, similar to componentDidMount
 
   const handleItemClick = (item) => {
     Navigate("/in/reply", { state: { item } }); /*pass item to tweet */
@@ -63,7 +64,7 @@ const Reply = () => {
       <Replyheader />
       <Tweetreply item={item} />
       <TweetPostReply item={item} />
-      {replyItem.map((item, index) => (
+      {replies.map((item, index) => (
         <div
           style={{
             width: "100%",
