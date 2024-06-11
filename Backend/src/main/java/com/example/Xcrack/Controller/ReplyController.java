@@ -24,7 +24,7 @@ public class ReplyController {
 
     @PostMapping("/{username}/create-reply")
     public Reply createReply(@RequestBody Reply reply, @PathVariable String username) {
-        return replyService.createReply(reply.getContent(), username, reply.getParentPost().getId(), reply.getMediaList());
+        return replyService.createReply(reply.getContent(), username, reply.getParentPost().getId());
     }
 
     @PostMapping("/{postId}/remove-reply")

@@ -2,12 +2,11 @@ package com.example.Xcrack.Service;
 
 import java.util.List;
 
-import com.example.Xcrack.Model.Media;
 import com.example.Xcrack.Model.Post;
 
 public interface PostService {
 
-    public Post createPost(String content, String username, List<Media> mediaList);
+    public Post createPost(String content, String username);
     public Post getPostByPostID(int postID);
     public void likePost(int postId, int userId);
     public void removePost(int postID);

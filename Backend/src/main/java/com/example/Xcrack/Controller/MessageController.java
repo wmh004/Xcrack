@@ -26,11 +26,11 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/send")
+    @PostMapping("/{senderUsername}/send-message/{receiverUsername}")
     public ResponseEntity<Message> sendMessage(@RequestBody MessageRequest messageRequest) {
         User sender = userService.getUserById(messageRequest.getSenderId());
         User receiver = userService.getUserById(messageRequest.getReceiverId());
-        Message message = messageService.sendMessage(sender, receiver, messageRequest.getContent(), messageRequest.getMediaList());
+        Message message = messageService.sendMessage(sender, receiver, messageRequest.getContent());
         return ResponseEntity.ok(message);
     }
 

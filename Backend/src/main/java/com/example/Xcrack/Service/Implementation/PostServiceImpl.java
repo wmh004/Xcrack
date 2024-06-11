@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.Xcrack.Exception.NotFoundException;
 import com.example.Xcrack.Model.Hashtag;
-import com.example.Xcrack.Model.Media;
 import com.example.Xcrack.Model.Post;
 import com.example.Xcrack.Model.User;
 import com.example.Xcrack.Repository.HashtagRepository;
@@ -44,7 +43,7 @@ public class PostServiceImpl implements PostService {
     private HashtagRepository hashtagRepository;
 
     @Override
-    public Post createPost(String content, String username, List<Media> mediaList) {
+    public Post createPost(String content, String username) {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
@@ -52,12 +51,6 @@ public class PostServiceImpl implements PostService {
         }
 
         Post post = new Post(content, user);
-
-        if (mediaList != null) {
-            post.setMediaList(mediaList);
-            mediaList.forEach(media -> media.setPost(post));
-        } else
-            post.setMediaList(null);
 
         Set<String> hashtags = extractHashtags(content);
         Set<String> mentions = extractMentions(content);
@@ -117,11 +110,6 @@ public class PostServiceImpl implements PostService {
 
         post.setDeleted(true);
         post.setContent("This post has been deleted");
-
-        // Clear the mediaList to ensure orphan removal
-        if (post.getMediaList() != null) {
-            post.getMediaList().clear();
-        }
 
         postRepository.save(post);
     }

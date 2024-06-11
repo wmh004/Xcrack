@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.Xcrack.Exception.NotFoundException;
-import com.example.Xcrack.Model.Media;
 import com.example.Xcrack.Model.Post;
 import com.example.Xcrack.Model.Reply;
 import com.example.Xcrack.Model.User;
@@ -40,7 +39,7 @@ public class ReplyServiceImpl implements ReplyService {
     private HashtagService hashtagService;
 
     @Override
-    public Reply createReply(String content, String username, int parentPostId, List<Media> mediaList) {
+    public Reply createReply(String content, String username, int parentPostId) {
         User user = userRepository.findByUsername(username);
 
         if (user == null)
@@ -52,13 +51,6 @@ public class ReplyServiceImpl implements ReplyService {
             throw new NotFoundException("Parent post not found with ID: " + parentPostId);
 
         Reply reply = new Reply(content, user, parentPost);
-
-        if (mediaList != null) {
-            reply.setMediaList(mediaList);
-            mediaList.forEach(media -> media.setReply(reply));
-        } else {
-            reply.setMediaList(null);
-        }
 
         Set<String> hashtags = extractHashtags(content);
         Set<String> mentions = extractMentions(content);
@@ -84,11 +76,6 @@ public class ReplyServiceImpl implements ReplyService {
     
         reply.setDeleted(true);
         reply.setContent("This reply has been deleted");
-    
-        // Clear the mediaList to ensure orphan removal
-        if (reply.getMediaList() != null) {
-            reply.getMediaList().clear();
-        }
     
         replyRepository.save(reply);
     }

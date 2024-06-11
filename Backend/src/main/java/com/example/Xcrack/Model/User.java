@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

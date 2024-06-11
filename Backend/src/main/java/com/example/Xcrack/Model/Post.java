@@ -1,7 +1,6 @@
 package com.example.Xcrack.Model;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -22,10 +21,6 @@ public class Post extends PostBase {
     @OneToMany(mappedBy = "parentPost", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "post-replies")
     private List<Reply> replies = new ArrayList<>();
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "post-media")
-    private List<Media> mediaList = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "post-tags")
@@ -61,19 +56,6 @@ public class Post extends PostBase {
         reply.setParentPost(null);
     }
 
-    public void addMedia(Media media) {
-        if (this.mediaList.size() >= 4) {
-            throw new IllegalArgumentException("A post can have a maximum of 4 media items only.");
-        }
-        this.mediaList.add(media);
-        media.setPost(this);
-    }
-
-    public void removeMedia(Media media) {
-        this.mediaList.remove(media);
-        media.setPost(null);
-    }
-
     public void addTag(Tag tag) {
         this.tags.add(tag);
     }
@@ -84,14 +66,6 @@ public class Post extends PostBase {
 
     public void setReplies(List<Reply> replies) {
         this.replies = replies;
-    }
-
-    public List<Media> getMediaList() {
-        return mediaList;
-    }
-
-    public void setMediaList(List<Media> mediaList) {
-        this.mediaList = mediaList;
     }
 
     public List<Tag> getTags() {

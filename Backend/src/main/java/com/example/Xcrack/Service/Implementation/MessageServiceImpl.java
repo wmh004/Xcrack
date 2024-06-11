@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.Xcrack.Exception.NotFoundException;
-import com.example.Xcrack.Model.Media;
 import com.example.Xcrack.Model.Message;
 import com.example.Xcrack.Model.Tag;
 import com.example.Xcrack.Model.User;
@@ -28,7 +27,7 @@ public class MessageServiceImpl implements MessageService{
     private TagRepository tagRepository;
 
     @Override
-    public Message sendMessage(User sender, User receiver, String content,List<Media> mediaList) {
+    public Message sendMessage(User sender, User receiver, String content) {
         Message message = new Message(sender, receiver, content);
         sender.addSentMessage(message);
         receiver.addReceivedMessage(message);
@@ -40,6 +39,7 @@ public class MessageServiceImpl implements MessageService{
         Message message = messageRepository.findById(messageId);
         message.getSender().removeSentMessage(message);
         message.getReceiver().removeReceivedMessage(message);
+        messageRepository.delete(message);
     }
 
     @Override
