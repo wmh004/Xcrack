@@ -7,7 +7,7 @@ public interface UserHashtagService {
     void addUserHashtagFromPost(User user, String hashtagStr);
     void addUserHashtagFromReply(User user, String hashtagStr);
     void addUserHashtagFromLike(User user, String hashtagStr);
-    void addUserHashtagsFromFollowing(User follower, User userToFollow);
+    // void addUserHashtagsFromFollowing(User follower, User userToFollow);
     // void addUserHashtagFromFollowing(User user, String hashtagStr);
     // void addUserHashtagFromBookmark(User user, String hashtagStr);
     // void addUserHashtagFromShare(User user, String hashtagStr);

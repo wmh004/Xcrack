@@ -70,18 +70,18 @@ public class UserHashtagServiceImpl implements UserHashtagService{
         }
     }
 
-    @Override
-    @Transactional
-    public void addUserHashtagsFromFollowing(User follower, User userToFollow) {
-        List<UserHashtag> topHashtags = userHashtagRepository.findTop3ByUserOrderByValueDesc(userToFollow);
-        for (UserHashtag hashtag : topHashtags) {
-            UserHashtag newHashtag = new UserHashtag();
-            newHashtag.setUser(follower);
-            newHashtag.setHashtag(hashtag.getHashtag());
-            newHashtag.setValue(6); // Assuming the initial value when following is 8
-            userHashtagRepository.save(newHashtag);
-        }
-    }
+    // @Override
+    // @Transactional
+    // public void addUserHashtagsFromFollowing(User follower, User userToFollow) {
+    //     List<UserHashtag> topHashtags = userHashtagRepository.findTop3ByUserOrderByValueDesc(userToFollow);
+    //     for (UserHashtag hashtag : topHashtags) {
+    //         UserHashtag newHashtag = new UserHashtag();
+    //         newHashtag.setUser(follower);
+    //         newHashtag.setHashtag(hashtag.getHashtag());
+    //         newHashtag.setValue(6); // Assuming the initial value when following is 8
+    //         userHashtagRepository.save(newHashtag);
+    //     }
+    // }
 
     // @Transactional
     // public void addUserHashtagFromRetweet(User user, String hashtagStr) {

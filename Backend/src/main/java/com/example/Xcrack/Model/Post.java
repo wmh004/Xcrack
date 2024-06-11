@@ -39,7 +39,7 @@ public class Post extends PostBase {
     }
 
     public Set<Hashtag> getHashtags() {
-        return hashtags;
+        return this.hashtags;
     }
 
     public void setHashtags(Hashtag hashtag) {
