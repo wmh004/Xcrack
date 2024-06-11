@@ -8,13 +8,20 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class SignUpServiceImpl implements SignUpService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserHashtagServiceImpl userHashtagServiceImpl; 
 
     @Autowired
     private MailSender mailSender;
@@ -60,5 +67,22 @@ public class SignUpServiceImpl implements SignUpService {
     public void setVerificationCode(User registration, String verificationCode) {
         registration.setVerificationCode(verificationCode);
         userRepository.save(registration);
+    }
+
+    @Override
+    public void SetHashtagPreferences(String Username,String hashtag){
+        User user = userRepository.findByUsername(Username);
+        String extractedHashtag = extractHashtag(hashtag);
+        userHashtagServiceImpl.addInitialHashtagPreference(user, extractedHashtag);
+    }
+
+    private String extractHashtag(String content) {
+        content = content.toLowerCase();
+        Pattern pattern = Pattern.compile("#\\w+");
+        Matcher matcher = pattern.matcher(content);
+        if (matcher.find()) {
+            return matcher.group().substring(1); // Remove the '#' character
+        }
+        return null; // Return null or throw an exception if no hashtag is found
     }
 }

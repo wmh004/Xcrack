@@ -1,5 +1,6 @@
 package com.example.Xcrack.Controller;
 
+import com.example.Xcrack.Model.Hashtag;
 import com.example.Xcrack.Model.User;
 import com.example.Xcrack.Service.SignUpService;
 import com.example.Xcrack.Service.UserService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+
 
 @RestController
 @RequestMapping("/signUp")
@@ -59,5 +61,11 @@ public class SignUpController {
         signUpService.saveRegistration(newUser); // problem is here
         newUser = null; // Reset newUser after registration is complete
         return "Registration successful!";
+    }
+
+    @PostMapping("/initialHashtag/{username}")
+    public String AddInitialHashtag(@PathVariable String username, @RequestBody String hashtag) {
+        signUpService.SetHashtagPreferences(username, hashtag);
+        return "Hashtag chosen.";
     }
 }
