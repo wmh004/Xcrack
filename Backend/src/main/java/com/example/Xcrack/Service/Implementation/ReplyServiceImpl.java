@@ -126,4 +126,9 @@ public class ReplyServiceImpl implements ReplyService {
         // Save the updated post back to the database
         replyRepository.save(reply);
     }
+
+    @Override
+    public Reply getReplyById(int ID) {
+        return replyRepository.getReplyById(ID);
+    }
 }

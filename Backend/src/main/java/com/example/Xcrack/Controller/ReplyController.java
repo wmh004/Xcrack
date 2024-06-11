@@ -15,6 +15,7 @@ import com.example.Xcrack.DTO.LikeRequest;
 import com.example.Xcrack.Model.Reply;
 import com.example.Xcrack.Service.ReplyService;
 
+
 @RestController
 @RequestMapping("/replies")
 public class ReplyController {
@@ -22,12 +23,12 @@ public class ReplyController {
     @Autowired
     private ReplyService replyService;
 
-    @PostMapping("/{username}/create-reply")
-    public Reply createReply(@RequestBody Reply reply, @PathVariable String username) {
-        return replyService.createReply(reply.getContent(), username, reply.getParentPost().getId());
+    @PostMapping("/{parentPostId}/create-reply/{replyId}")
+    public Reply createReply(@RequestBody Reply reply, @PathVariable int parentPostId) {
+        return replyService.createReply(reply.getContent(), reply.getUsername(), parentPostId);
     }
 
-    @PostMapping("/{postId}/remove-reply")
+    @PostMapping("/{replyId}/remove-reply")
     public void removeReply(@PathVariable int replyId) {
         replyService.removeReply(replyId);
     }
@@ -41,6 +42,11 @@ public class ReplyController {
     public ResponseEntity<?> likeReply(@PathVariable int replyId, @RequestBody LikeRequest likeRequest) {
         replyService.likeReply(replyId, likeRequest.getUserId());
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{replyId}")
+    public Reply getReplyById(@PathVariable int replyId) {
+        return replyService.getReplyById(replyId);
     }
 }
 

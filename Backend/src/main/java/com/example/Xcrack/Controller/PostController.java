@@ -35,7 +35,7 @@ public class PostController {
     }
 
     @GetMapping("/post-by-id/{postId}")
-    public Post getPostByPostId(@PathVariable int postId) {
+    public Post getPostById(@PathVariable int postId) {
         return postService.getPostByPostID(postId);
     }
     
@@ -49,9 +49,9 @@ public class PostController {
         postService.removePost(postId);
     }
 
-    @PostMapping("/{username}/create-reply")
-    public Reply createReply(@RequestBody Reply reply, @PathVariable String username) {
-        return replyService.createReply(reply.getContent(), username, reply.getParentPost().getId());
+    @PostMapping("/{parentPostId}/create-reply/{replyId}")
+    public Reply createReply(@RequestBody Reply reply, int parentPostId) {
+        return replyService.createReply(reply.getContent(), reply.getUsername(), parentPostId);
     }
 
     @PostMapping("/{replyId}/remove-reply")
