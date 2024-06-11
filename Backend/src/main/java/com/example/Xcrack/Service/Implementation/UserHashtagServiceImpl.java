@@ -14,7 +14,6 @@ import com.example.Xcrack.Repository.UserHashtagRepository;
 import com.example.Xcrack.Service.UserHashtagService;
 
 import jakarta.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class UserHashtagServiceImpl implements UserHashtagService{
@@ -26,17 +25,17 @@ public class UserHashtagServiceImpl implements UserHashtagService{
 
     @Transactional
     public void addInitialHashtagPreference(User user, String hashtagStr) {
-        addOrUpdateUserHashtag(user, hashtagStr, 8);
+        addOrUpdateUserHashtag(user, hashtagStr, 10);
     }
 
     @Transactional
     public void addUserHashtagFromFollowing(User user, String hashtagStr) {
-        addOrUpdateUserHashtag(user, hashtagStr, 9);
+        addOrUpdateUserHashtag(user, hashtagStr, 8);
     }
 
     @Transactional
     public void addUserHashtagFromPost(User user, String hashtagStr) {
-        addOrUpdateUserHashtag(user, hashtagStr, 7);
+        addOrUpdateUserHashtag(user, hashtagStr, 9);
     }
 
     @Transactional

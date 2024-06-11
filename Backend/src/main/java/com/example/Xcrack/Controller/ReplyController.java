@@ -23,7 +23,7 @@ public class ReplyController {
     @Autowired
     private ReplyService replyService;
 
-    @PostMapping("/{parentPostId}/create-reply/{replyId}")
+    @PostMapping("/{parentPostId}/create-reply")
     public Reply createReply(@RequestBody Reply reply, @PathVariable int parentPostId) {
         return replyService.createReply(reply.getContent(), reply.getUsername(), parentPostId);
     }
