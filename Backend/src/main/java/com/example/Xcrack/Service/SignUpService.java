@@ -8,4 +8,5 @@ public interface SignUpService {
     String generateVerificationCode();
     void setVerificationCode(User registration, String verificationCode);
     public boolean sendVerificationEmail(String email, String verificationCode);
+    public void SetHashtagPreferences(String Username,String hashtag);
 }

@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("/user")
@@ -80,5 +79,13 @@ public class UserController {
         return ResponseEntity.ok().build(); 
     }
     
-    
+    @GetMapping("/{username}/profile-picture")
+    public ResponseEntity<String> getProfilePictureUrl(@PathVariable String username) {
+        String profilePictureUrl = userService.getProfilePictureUrl(username);
+        if (profilePictureUrl != null) {
+            return ResponseEntity.ok(profilePictureUrl);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

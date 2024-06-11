@@ -23,5 +23,6 @@ public interface UserService {
     void followUser(String username, String usernameToFollow);
     void unfollowUser(String username, String usernameToUnfollow);
     UserDetails getUserDetailsByUsername(String username);
+    String getProfilePictureUrl(String username);
 
 }

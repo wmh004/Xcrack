@@ -170,5 +170,10 @@ public class UserServiceImpl implements UserService {
         }
         return new UserDetails(user.getUsername(), user.getName(), user.getBio(), user.getProfilePictureUrl(), user.getBackgroundPictureUrl(), user.getLocation(), user.getWebsiteUrl(), user.getDob(), user.getFollowers(), user.getFollowing(), user.getPosts(), user.getReplies());
     }
+
+    public String getProfilePictureUrl(String username) {
+        User user = userRepository.findByUsername(username);
+        return (user != null) ? user.getProfilePictureUrl() : null;
+    }
     
 }

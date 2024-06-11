@@ -64,6 +64,7 @@ public class ReplyServiceImpl implements ReplyService {
         processHashtagsFromParentPost(user, parentPost);
 
         parentPost.addReply(reply);
+        parentPost.setReplyCount(parentPost.getReplyCount() + 1);
         user.addReply(reply);
         return replyRepository.save(reply);
     }
