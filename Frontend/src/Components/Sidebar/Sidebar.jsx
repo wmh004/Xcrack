@@ -212,7 +212,7 @@ const Sidebar = () => {
                 onClick={() => handleItemClick()}
               >
                 <p>Log out</p>
-                <p>@{profileData.username}</p>
+                <p>@{profileData ? profileData.username : ""}</p>
               </div>
               <img
                 style={{ height: "50px", width: "60px", border: "none" }}
@@ -248,7 +248,7 @@ const Sidebar = () => {
                         color: "rgb(113, 118, 123)",
                       }}
                     >
-                      @{profileData.username}
+                      @{profileData ? profileData.username : ""}
                     </p>
                   ) : (
                     <p>username</p>
