@@ -41,14 +41,14 @@ public class RecommendServiceImpl implements RecommendService {
         User user = userRepository.findByUsername(username);
         List<User> blockedUsers = userRepository.findBlockedUsersByUsername(user.getUsername());
         List<UserHashtag> userHashtags = userHashtagRepository.findByUser(user);
-        // List<ReadPost> readpost = readPostRepository.findByUser(user);
+        List<ReadPost> readpost = readPostRepository.findByUser(user);
 
         Iterator<Post> iterator = posts.iterator();
 
-        // // First loop to remove all the posts from banned users, read post, blocked user then adds the value of each hashtag
+        // First loop to remove all the posts from banned users, read post, blocked user then adds the value of each hashtag
 
         while (iterator.hasNext()) {
-            // boolean RPValue = false; // flag to continue to the next post if the post has been read (ReadPostValue)
+            boolean RPValue = false; // flag to continue to the next post if the post has been read (ReadPostValue)
             boolean BUValue = false; // flag to continue to the next post if the post is from a blocked user (BlockedUserValue)
 
 
@@ -64,19 +64,19 @@ public class RecommendServiceImpl implements RecommendService {
                 continue;
             }
 
-            // if (readpost != null) {
-            //     for (ReadPost rp : readpost) { // Loop to remove posts that have been read
-            //         if (post.equals(rp.getPost())) {
-            //             iterator.remove();
-            //             RPValue = true;
-            //             break;
-            //         }
-            //     }
-            // }
+            if (readpost != null) {
+                for (ReadPost rp : readpost) { // Loop to remove posts that have been read
+                    if (post.equals(rp.getPost())) {
+                        iterator.remove();
+                        RPValue = true;
+                        break;
+                    }
+                }
+            }
 
-            // if (RPValue) {
-            //     continue;
-            // }
+            if (RPValue) {
+                continue;
+            }
 
             for (User bu : blockedUsers) { // Loop to remove posts that are from blocked user
                 if (post.getUser().getUsername().equals(bu.getUsername())) {
@@ -111,18 +111,18 @@ public class RecommendServiceImpl implements RecommendService {
        
         posts.sort(postComparator);  // Sorting the list using the custom comparator
 
-        List<Post> returnList = posts.subList(0, 10); // Returns the first 20 posts
+        List<Post> returnList = posts.subList(0, 5); // Returns the first 20 posts
 
         for (Post post : posts) {
             post.ResetValue();
             postRepository.save(post);
         }
 
-        // for (Post addNewReadPost : returnList) {
-        //     readPostServiceImpl.AddReadPost(addNewReadPost, user);
-        //     addNewReadPost.setViewCount(addNewReadPost.getViewCount() + 1);
-        //     postRepository.save(addNewReadPost);
-        // }
+        for (Post addNewReadPost : returnList) {
+            readPostServiceImpl.AddReadPost(addNewReadPost, user);
+            addNewReadPost.setViewCount(addNewReadPost.getViewCount() + 1);
+            postRepository.save(addNewReadPost);
+        }
 
         return returnList;
     }
