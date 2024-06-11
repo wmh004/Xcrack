@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException(usernameToUnfollow);
 
         user.unfollowUser(userToUnfollow);
-        followingStatusServiceImpl.unfollowUser(user, userToUnfollow); 
+        followingStatusServiceImpl.UnfollowUser(user, userToUnfollow); 
     }
 
     @Override

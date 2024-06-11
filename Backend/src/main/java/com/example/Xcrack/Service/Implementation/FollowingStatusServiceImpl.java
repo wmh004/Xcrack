@@ -2,13 +2,19 @@ package com.example.Xcrack.Service.Implementation;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.Xcrack.Exception.NotFoundException;
 import com.example.Xcrack.Model.FollowingStatus;
 import com.example.Xcrack.Model.User;
 import com.example.Xcrack.Repository.FollowingStatusRepository;
+import com.example.Xcrack.Service.FollowingStatusService;
 
-public class FollowingStatusServiceImpl {
+@Service
+public class FollowingStatusServiceImpl implements FollowingStatusService {
 
+    @Autowired
     FollowingStatusRepository followingStatusRepository;
 
     public FollowingStatus FollowUser(User follower, User following) {
@@ -33,7 +39,7 @@ public class FollowingStatusServiceImpl {
     }
 
 
-    public FollowingStatus unfollowUser(User follower, User following) {
+    public FollowingStatus UnfollowUser(User follower, User following) {
 
         List<FollowingStatus> FollowStatus = followingStatusRepository.findByFollower(follower);
 
