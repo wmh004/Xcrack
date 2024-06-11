@@ -18,6 +18,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private FollowingStatusServiceImpl followingStatusServiceImpl; 
+
     @Override
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -141,6 +144,7 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException(usernameToFollow);
 
         user.followUser(userToFollow);
+        followingStatusServiceImpl.FollowUser(user, userToFollow); 
     }
 
     @Override
@@ -155,6 +159,7 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException(usernameToUnfollow);
 
         user.unfollowUser(userToUnfollow);
+        followingStatusServiceImpl.unfollowUser(user, userToUnfollow); 
     }
 
     @Override

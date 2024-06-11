@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("/user")
@@ -66,5 +67,18 @@ public class UserController {
         userService.unbanUser(username);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/{username}/follow/{usernameToFollow}")
+    public ResponseEntity<Void> FollowUser(@PathVariable String username, @PathVariable String usernameToFollow) {
+        userService.followUser(username, usernameToFollow);
+        return ResponseEntity.ok().build(); 
+    }
+
+    @PostMapping("/{username}/follow/{usernameToUnfollow}")
+    public ResponseEntity<Void> unfollowUser(@PathVariable String username, @PathVariable String usernameToUnfollow) {
+        userService.followUser(username, usernameToUnfollow);
+        return ResponseEntity.ok().build(); 
+    }
+    
     
 }

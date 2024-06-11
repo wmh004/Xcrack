@@ -1,5 +1,7 @@
 package com.example.Xcrack.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,14 +20,13 @@ public class FollowingStatus {
 
     @ManyToOne
     @JoinColumn(name = "follower_id", nullable = false)
-    
     private User follower;
 
     @ManyToOne
     @JoinColumn(name = "following_id", nullable = false)
-    
     private User following;
 
+    @JsonIgnore
     private int status; // 1 for following, -1 for unfollowed
 
     public FollowingStatus() {}
