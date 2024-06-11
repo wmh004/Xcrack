@@ -179,7 +179,7 @@ public class PostServiceImpl implements PostService {
         }
 
         // Increment the like count
-        post.setLikeCount(post.getLikeCount() + 1);
+        post.setLikeCount(post.getLikeCount() + 3);
 
         // Save the updated post back to the database
         postRepository.save(post);

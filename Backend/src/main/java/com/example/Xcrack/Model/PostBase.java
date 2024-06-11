@@ -81,7 +81,11 @@ public abstract class PostBase {
     }
 
     public void setValue(int value) {
-        this.value = value;
+        this.value += value;
+    }
+
+    public void ResetValue(){
+        this.value = 0; 
     }
 
     public String getContent() {

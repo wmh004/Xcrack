@@ -44,8 +44,8 @@ public class HomeController {
     private PostService postService;
 
     @GetMapping("/home")
-    public Map<String, List<Post>> getHomePosts(@RequestBody int userId) {
-        List<Post> forYouPosts = recommendService.getPosts(userId);
+    public Map<String, List<Post>> getHomePosts(@RequestBody String username) {
+        List<Post> forYouPosts = recommendService.getPosts(username);
         Map<String, List<Post>> response = new HashMap<>();
         response.put("forYou", forYouPosts);
         return response;

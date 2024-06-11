@@ -48,6 +48,8 @@ public class UserHashtagServiceImpl implements UserHashtagService{
         addOrUpdateUserHashtag(user, hashtagStr, 4);
     }
 
+    
+
     private void addOrUpdateUserHashtag(User user, String hashtagStr, int valueToAdd) {
         Optional<UserHashtag> optionalUserHashtag = userHashtagRepository.findByUserUsernameAndHashtagHashtagIgnoreCase(user.getUsername(), hashtagStr);
         if (optionalUserHashtag.isPresent()) {
