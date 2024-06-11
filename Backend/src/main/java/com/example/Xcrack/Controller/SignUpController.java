@@ -1,6 +1,5 @@
 package com.example.Xcrack.Controller;
 
-import com.example.Xcrack.Model.Hashtag;
 import com.example.Xcrack.Model.User;
 import com.example.Xcrack.Service.SignUpService;
 import com.example.Xcrack.Service.UserService;
