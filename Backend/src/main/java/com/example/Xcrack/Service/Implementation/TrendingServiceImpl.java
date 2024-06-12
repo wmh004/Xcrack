@@ -29,7 +29,6 @@ public class TrendingServiceImpl implements TrendingService {
 
 }
      @Override
-     @Transactional
     public void addPost(Post post) {
         for (Hashtag hashtag : post.getHashtags()) {
             Hashtag existingHashtag = hashtagRepository.findByHashtag(hashtag.getHashtag());
