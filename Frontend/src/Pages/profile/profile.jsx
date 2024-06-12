@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState} from "react";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import ProfileHeader from "./profileheader/profileheader";
 import ProfilePic from "../../resources/twitter/me.jpg";
@@ -15,7 +15,9 @@ import { useProfile } from "../../DataSets/ProfileContext.js";
 
 const Profile = () => {
   const { profileData, setProfileData } = useProfile();
+  const { profiletoken, setProfileToken } = useProfile();
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true); // State to track loading status
 
   useEffect(() => {
     if (location.state && location.state.profileData) {

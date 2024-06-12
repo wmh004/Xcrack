@@ -8,7 +8,9 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,20 +69,27 @@ public class SignUpServiceImpl implements SignUpService {
         userRepository.save(registration);
     }
 
-    @Override
-    public void SetHashtagPreferences(String Username,String hashtag){
-        User user = userRepository.findByUsername(Username);
-        String extractedHashtag = extractHashtag(hashtag);
-        userHashtagServiceImpl.addInitialHashtagPreference(user, extractedHashtag);
-    }
-
-    private String extractHashtag(String content) {
-        content = content.toLowerCase();
-        Pattern pattern = Pattern.compile("#\\w+");
-        Matcher matcher = pattern.matcher(content);
-        if (matcher.find()) {
-            return matcher.group().substring(1); // Remove the '#' character
-        }
-        return null; // Return null or throw an exception if no hashtag is found
+    @Override 
+    public void SetHashtagPreferences(String Username,String hashtag){ 
+        User user = userRepository.findByUsername(Username); 
+        Set<String> extractedHashtags = extractHashtags(hashtag); 
+        processHashtags(user, extractedHashtags); 
+    } 
+ 
+    private Set<String> extractHashtags(String content) { 
+        content = content.toLowerCase(); 
+        Set<String> hashtags = new HashSet<>(); 
+        Pattern pattern = Pattern.compile("#\\w+"); 
+        Matcher matcher = pattern.matcher(content); 
+        while (matcher.find()) { 
+            hashtags.add(matcher.group().substring(1).toLowerCase()); // Remove the '#' character 
+        } 
+        return hashtags; 
+    } 
+ 
+    private void processHashtags(User user, Set<String> hashtags) { 
+        for (String hashtag : hashtags) { 
+            userHashtagServiceImpl.addInitialHashtagPreference(user, hashtag); 
+        } 
     }
 }

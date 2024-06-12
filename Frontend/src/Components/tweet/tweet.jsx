@@ -17,8 +17,11 @@ const Tweet = ({ item, onMoreButtonClick }) => {
   const [isHovered1, setIsHovered1] = useState(false);
   const [isHovered2, setIsHovered2] = useState(false);
   const [isHovered3, setIsHovered3] = useState(false);
+  const { setProfileToken } = useProfile();
 
   const handleItemClick = (event) => {
+    setIsHovered1(!isHovered1); // Toggle the hover state
+    setProfileToken(item); // Pass the item to updateProfileDataUser
     event.stopPropagation();
   };
 
@@ -75,7 +78,7 @@ const Tweet = ({ item, onMoreButtonClick }) => {
           </p>
           <p></p>
         </div>
-        <div className="summary-tooltip-profile-bottom">bottom</div>
+        <div className="summary-tooltip-profile-bottom">bio</div>
       </div>
       <div
         style={{

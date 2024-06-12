@@ -182,3 +182,52 @@
   margin-bottom: 10px;
 }
 
+/* Container for the tagging page */
+.tagging-page {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #333;
+}
+
+h2 {
+  margin-bottom: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 35px;
+}
+
+/* Grid layout for tags */
+.tag-grid {
+  display: grid;
+  gap: 10px; /* Space between items */
+  grid-template-columns: 1fr 1fr 1fr;
+  width: auto;
+}
+
+/* Tag item styles */
+.tag-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, border 0.3s;
+}
+
+.tag-item:hover {
+  background-color: #aaa;
+  border-color: #aaa;
+}
+
+/* Selected tag item styles */
+.tag-item.selected {
+  background-color: #007bff;
+  border-color: #0056b3;
+  color: white;
+}
+
+.tag-item.selected:hover {
+  background-color: #0056b3;
+}

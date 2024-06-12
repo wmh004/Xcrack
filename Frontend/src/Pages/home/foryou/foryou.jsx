@@ -38,6 +38,7 @@ const Foryou = () => {
         username: item.name,
         account_name: item.username, // Assuming "name" from API corresponds to "account_name" in your frontend
         time: item.timeCreated, // You may need to format this according to your frontend's requirements
+        datecreated: item.dateCreated,
         captions: item.content,
         comment_count: item.replyCount,
         rt_count: item.repostCount,
@@ -100,7 +101,7 @@ const Foryou = () => {
                   fontWeight: "550",
                 }}
               >
-                Follow @{item.username}
+                Follow @{item.account_name}
               </p>
             </div>
           )}

@@ -52,7 +52,7 @@ const Reply = () => {
   }, [replies]); // Empty dependency array means it will only run once, similar to componentDidMount
 
   const handleItemClick = (item) => {
-    Navigate("/in/reply", { state: { item } }); /*pass item to tweet */
+    // Navigate("/in/reply", { state: { item } }); /*pass item to tweet */
   };
 
   return (

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import XcrackLogo from "../../resources/twitter/xcrack-logo.jpg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const VerificationCode2 = () => {
   const [code, setCode] = useState(""); // State to track email input value
   const Navigate = useNavigate();
   const [response, setResponse] = useState("");
+  const location = useLocation();
+  const username = location.state?.username;// Access VerificationItem from location state
 
   const handleItemClick = () => {
     Navigate("/verification/user/create-account");
@@ -14,7 +16,7 @@ const VerificationCode2 = () => {
     setCode(e.target.value); // Update email state on input change
   };
 
-  const VerificationItem = {
+  const VerificationCodeItem = {
     verificationCode: code,
   };
 
@@ -26,11 +28,13 @@ const VerificationCode2 = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(VerificationItem),
+        body: JSON.stringify(VerificationCodeItem),
       });
       const data = await res.text();
       if (data === "Registration successful!") {
-        Navigate("/verification/login");
+        Navigate("/verification/user/create-account/tagging", {
+          state: { username },
+        });
       } else {
         setResponse(data);
       }
@@ -45,7 +49,8 @@ const VerificationCode2 = () => {
     if (response) {
       setIsVisible(true);
       setTimeout(() => {
-        setIsVisible(false);setResponse("");
+        setIsVisible(false);
+        setResponse("");
       }, 2000); // Delay and hide after 300ms
     }
   }, [response]);
@@ -99,6 +104,7 @@ const VerificationCode2 = () => {
           <label for="email">Enter your code</label>
         </div>
       </div>
+
       <div
         className="filler-3"
         style={{

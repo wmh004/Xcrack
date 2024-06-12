@@ -7,6 +7,7 @@ import ForgotPassConfirm from "../forgotpassconfirm/forgotpassconfirm";
 import VerificationCode1 from "../verificationcode1/verificationcode1";
 import VerificationCode2 from "../verificationcode2/verificationcode2";
 import ChangePassword from "../changepass/changepass";
+import InitialTagging from "../createacc/initialtagging";
 
 
 const VerificationTemplate = () => {
@@ -17,6 +18,7 @@ const VerificationTemplate = () => {
       <Routes>
         <Route path="create-account" element={<CreateAcc />} />
         <Route path="create-account/code" element={<VerificationCode2 />} />
+        <Route path="create-account/tagging" element={<InitialTagging />} />
         <Route path="change-password" element={<ChangePassword />} />
         <Route path="forgot-password/fill" element={<ForgotPass />} />
         <Route path="forgot-password/confirmation" element={<ForgotPassConfirm />} />

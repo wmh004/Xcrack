@@ -22,58 +22,40 @@ const Info = () => {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const RecommendTagItem = [
-    {
-      country: "Malaysia",
-      tag: "Leona",
-      post_count: "8,288",
-    },
-    {
-      country: "Malaysia",
-      tag: "#เชื่อว่าเพิร์ธทําได้",
-      post_count: "7,574",
-    },
-    {
-      country: "Malaysia",
-      tag: "Azhar Sulaiman",
-      post_count: "6,566",
-    },
-    {
-      country: "Malaysia",
-      tag: "#3M200KnongNEWza",
-      post_count: "33.8K",
-    },
-    {
-      country: "Malaysia",
-      tag: "taeyong",
-      post_count: "196K",
-    },
-    {
-      country: "Malaysia",
-      tag: "#AllEyesOnRafah",
-      post_count: "15.9K",
-    },
-    {
-      country: "Malaysia",
-      tag: "UiTM",
-      post_count: "15.2K",
-    },
-    {
-      country: "Malaysia",
-      tag: "#ThailandOpen2024",
-      post_count: "1,737",
-    },
-    {
-      country: "Malaysia",
-      tag: "Johor",
-      post_count: "14.6K",
-    },
-    {
-      country: "Malaysia",
-      tag: "#ILAND2",
-      post_count: "20K",
-    },
-  ];
+  const [trends, setTrends] = useState([]);
+
+  const transformData = (apiData) => {
+    return apiData.map((item) => {
+      return {
+        country: "Malaysia",
+        tag: item.hashtag,
+        post_count: item.count,
+        id: item.id
+      };
+    });
+  };
+
+  const fetchTrends = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/trending/hashtags`
+      );
+      const data = await response.json();
+      const transformedData = transformData(data);
+      setTrends(transformedData);
+    } catch (error) {
+      console.error("Error fetching trends:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTrends();
+  }, []); // Empty dependency array means it will only run once, similar to componentDidMount
+
+  useEffect(() => {
+    console.log("trends after update:", trends);
+  }, [trends]); // Empty dependency array means it will only run once, similar to componentDidMount
+
 
   const RecommendAccItem = [
     {
@@ -83,7 +65,6 @@ const Info = () => {
         <img
           style={{ height: "40px", width: "40px" }}
           className="sidebar-icon"
-          alt={RecommendTagItem.account_name}
         />
       ),
     },
@@ -94,7 +75,6 @@ const Info = () => {
         <img
           style={{ height: "40px", width: "40px" }}
           className="sidebar-icon"
-          alt={RecommendTagItem.account_name}
         />
       ),
     },
@@ -105,7 +85,6 @@ const Info = () => {
         <img
           style={{ height: "40px", width: "40px" }}
           className="sidebar-icon"
-          alt={RecommendTagItem.account_name}
         />
       ),
     },
@@ -162,7 +141,7 @@ const Info = () => {
           >
             Trends for you
           </p>
-          {RecommendTagItem.map((item, index) => (
+          {trends.map((item, index) => (
             <div className="trend-container">
               <div className="trend-child-1">
                 <p

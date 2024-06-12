@@ -32,7 +32,6 @@ const tweetreply = ({ item }) => {
                 height: "50px",
                 width: "50px",
               }}
-              title={item.username}
             />
           </div>
           <div className="reply-content-child-1-child-2">
@@ -87,14 +86,17 @@ const tweetreply = ({ item }) => {
           </div>
         </div>
         <div className="reply-content-child-2">
-          <p 
+          <p
             style={{
               fontSize: "20px",
-            }}>{item.captions}</p>
+            }}
+          >
+            {item.captions}
+          </p>
         </div>
         <div className="reply-content-child-3">
           <div className="reply-content-child-3-child">
-            <div>{item.time} &#183;</div>
+            <div>{item.datecreated} &#183;</div>
             <div>{item.time} &#183;</div>
             <div>
               &#160;

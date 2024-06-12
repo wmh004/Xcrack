@@ -16,7 +16,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Integer> {
     @Query("SELECT p FROM Reply p WHERE p.id = :ID AND p.deleted = false")
     public Reply getReplyById(int ID);
 
-    @Query("SELECT p FROM Reply p WHERE p.deleted = false AND p.parentPost.id = :parentPostId")
+    @Query("SELECT p FROM Reply p WHERE  p.parentPost.id = :parentPostId")
     public List<Reply> getRepliesByParentId(@Param("parentPostId") int parentPostId);
 
 }

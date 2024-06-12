@@ -77,7 +77,9 @@ const CreateAcc = () => {
     }
   }, [name, email, password, month, day, year, username]);
   const handleItemClick = () => {
-    Navigate("/verification/login");
+    Navigate("/verification/login", {
+      state: {username },
+    });
   };
 
   // Button click handler
@@ -98,7 +100,9 @@ const CreateAcc = () => {
           "Verification code sent to your email. Please check and verify."
         ) {
           setResponse(data);
-          Navigate("/verification/user/create-account/code");
+          Navigate("/verification/user/create-account/code", {
+            state: {username}
+          });
         } else {
           setResponse(data);
         }

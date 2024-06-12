@@ -108,6 +108,47 @@ const Tweetpostreply = ({ item }) => {
     }
   };
 
+  const handleDeleteReply = async (postId) => {
+    try {
+      const res = await fetch(
+        `http://localhost:8080/replies/${encodeURIComponent(postId)}/remove-reply`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await res.text();
+      if (true) {
+        setPosts((prevPosts) =>
+          prevPosts.map((post) =>
+            post.id === postId
+              ? { ...post, captions: "This reply has been deleted" }
+              : post
+          )
+        );
+      } else {
+        setResponse(data);
+      }
+    } catch (error) {
+      setResponse("Failed to delete the reply. Please try again.");
+      console.error("Error:", error);
+    }
+  };
+
+  const [toggledIndex, setToggledIndex] = useState(null);
+
+  const handleToggleMore = (index, event) => {
+    event.stopPropagation();
+    setToggledIndex(toggledIndex === index ? null : index);
+  };
+
+  const handleToggleTooltip = (event) => {
+    event.stopPropagation();
+    setToggledIndex(null);
+  };
+
   return (
     <div style={{ width: "100%", height: "auto" }}>
       <div className="home-content">
@@ -235,8 +276,32 @@ const Tweetpostreply = ({ item }) => {
         </div>
       </div>
       {posts.map((post, index) => (
-        <div style={{ width: "100%" }}>
-          <Tweet key={index} item={post} />
+        <div key={post.id} style={{ width: "100%", position: "relative" }}>
+          <Tweet
+            key={post.id} // Add a unique key here
+            item={post}
+            onMoreButtonClick={(event) => handleToggleMore(index, event)}
+          />
+          {toggledIndex === index && (
+            <div
+              className="more-tooltip"
+              onClick={(event) => handleToggleTooltip(event)}
+            >
+              <p
+                style={{
+                  padding: "7px 20px",
+                  color: "red",
+                  borderRadius: "40px",
+                  fontWeight: "550",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleDeleteReply(post.id)}
+              >
+                Delete
+                {post.id}
+              </p>
+            </div>
+          )}
         </div>
       ))}
     </div>
