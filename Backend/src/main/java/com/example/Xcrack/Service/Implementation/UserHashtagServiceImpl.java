@@ -14,7 +14,6 @@ import com.example.Xcrack.Repository.UserHashtagRepository;
 import com.example.Xcrack.Service.UserHashtagService;
 
 import jakarta.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class UserHashtagServiceImpl implements UserHashtagService{
@@ -26,17 +25,17 @@ public class UserHashtagServiceImpl implements UserHashtagService{
 
     @Transactional
     public void addInitialHashtagPreference(User user, String hashtagStr) {
-        addOrUpdateUserHashtag(user, hashtagStr, 8);
+        addOrUpdateUserHashtag(user, hashtagStr, 10);
     }
 
     @Transactional
     public void addUserHashtagFromFollowing(User user, String hashtagStr) {
-        addOrUpdateUserHashtag(user, hashtagStr, 9);
+        addOrUpdateUserHashtag(user, hashtagStr, 8);
     }
 
     @Transactional
     public void addUserHashtagFromPost(User user, String hashtagStr) {
-        addOrUpdateUserHashtag(user, hashtagStr, 7);
+        addOrUpdateUserHashtag(user, hashtagStr, 9);
     }
 
     @Transactional
@@ -48,6 +47,8 @@ public class UserHashtagServiceImpl implements UserHashtagService{
     public void addUserHashtagFromLike(User user, String hashtagStr) {
         addOrUpdateUserHashtag(user, hashtagStr, 4);
     }
+
+    
 
     private void addOrUpdateUserHashtag(User user, String hashtagStr, int valueToAdd) {
         Optional<UserHashtag> optionalUserHashtag = userHashtagRepository.findByUserUsernameAndHashtagHashtagIgnoreCase(user.getUsername(), hashtagStr);
@@ -70,18 +71,18 @@ public class UserHashtagServiceImpl implements UserHashtagService{
         }
     }
 
-    @Override
-    @Transactional
-    public void addUserHashtagsFromFollowing(User follower, User userToFollow) {
-        List<UserHashtag> topHashtags = userHashtagRepository.findTop3ByUserOrderByValueDesc(userToFollow);
-        for (UserHashtag hashtag : topHashtags) {
-            UserHashtag newHashtag = new UserHashtag();
-            newHashtag.setUser(follower);
-            newHashtag.setHashtag(hashtag.getHashtag());
-            newHashtag.setValue(6); // Assuming the initial value when following is 8
-            userHashtagRepository.save(newHashtag);
-        }
-    }
+    // @Override
+    // @Transactional
+    // public void addUserHashtagsFromFollowing(User follower, User userToFollow) {
+    //     List<UserHashtag> topHashtags = userHashtagRepository.findTop3ByUserOrderByValueDesc(userToFollow);
+    //     for (UserHashtag hashtag : topHashtags) {
+    //         UserHashtag newHashtag = new UserHashtag();
+    //         newHashtag.setUser(follower);
+    //         newHashtag.setHashtag(hashtag.getHashtag());
+    //         newHashtag.setValue(6); // Assuming the initial value when following is 8
+    //         userHashtagRepository.save(newHashtag);
+    //     }
+    // }
 
     // @Transactional
     // public void addUserHashtagFromRetweet(User user, String hashtagStr) {

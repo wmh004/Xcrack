@@ -18,6 +18,6 @@ public interface UserHashtagRepository extends JpaRepository<UserHashtag, Intege
     @Query("SELECT uh FROM UserHashtag uh " + "WHERE LOWER(uh.user.username) = LOWER(:username) " + "AND LOWER(uh.hashtag.hashtag) = LOWER(:hashtag)")
     Optional<UserHashtag> findByUserUsernameAndHashtagHashtagIgnoreCase(@Param("username") String username, @Param("hashtag") String hashtag);
     
-    @Query(value = "SELECT * FROM user_hashtag WHERE user_id = :userId ORDER BY value DESC LIMIT 3", nativeQuery = true)
-    List<UserHashtag> findTop3ByUserOrderByValueDesc(@Param("userId") User user);
+    // @Query(value = "SELECT * FROM user_hashtag WHERE user_id = :userId ORDER BY value DESC LIMIT 3", nativeQuery = true)
+    // List<UserHashtag> findTop3ByUserOrderByValueDesc(@Param("userId") User user);
 }

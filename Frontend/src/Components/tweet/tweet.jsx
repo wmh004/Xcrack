@@ -71,7 +71,7 @@ const Tweet = ({ item, onMoreButtonClick }) => {
             {item.username}
           </p>
           <p className="home-content-account-name" style={{ marginTop: "5px" }}>
-            {item.account_name}
+            @{item.account_name}
           </p>
           <p></p>
         </div>
@@ -121,7 +121,7 @@ const Tweet = ({ item, onMoreButtonClick }) => {
               onMouseEnter={() => setIsHovered3(true)}
               onMouseLeave={() => setIsHovered3(false)}
             >
-              {item.account_name}&nbsp;&#183;
+              @{item.account_name}&nbsp;&#183;
             </p>
             <p className="home-content-time">{item.time}</p>
           </div>

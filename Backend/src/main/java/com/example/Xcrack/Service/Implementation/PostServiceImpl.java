@@ -172,6 +172,11 @@ public class PostServiceImpl implements PostService {
     public void likePost(int postId, int userId) {
         // Retrieve the post from the database
         Post post = postRepository.getPostById(postId);
+        User user = userRepository.findById(userId);
+
+        for(Hashtag hashtag : post.getHashtags()){
+            userHashtagServiceImpl.addUserHashtagFromLike(user, hashtag.getHashtag());
+        }
 
         // Increment the like count
         post.setLikeCount(post.getLikeCount() + 1);

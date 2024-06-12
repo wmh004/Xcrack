@@ -23,8 +23,7 @@ public class Reply extends PostBase {
     @JoinTable(
         name = "reply_hashtag",
         joinColumns = @JoinColumn(name = "reply_id"),
-        inverseJoinColumns = @JoinColumn(name = "hashtag_id")
-    )
+        inverseJoinColumns = @JoinColumn(name = "hashtag_id"))
     private Set<Hashtag> hashtags = new HashSet<>();
 
     public Reply() {}
@@ -41,4 +40,14 @@ public class Reply extends PostBase {
     public void setParentPost(Post parentPost) {
         this.parentPost = parentPost;
     }
+
+    public Set<Hashtag> getHashtags() {
+        return this.hashtags;
+    }
+
+    public void setHashtags(Hashtag hashtag) {
+        this.hashtags.add(hashtag);
+    }
+
+    
 }

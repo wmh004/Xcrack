@@ -7,6 +7,7 @@ import com.example.Xcrack.Model.Reply;
 public interface ReplyService {
 
     public Reply getReplyById(int ID);
+    public List<Reply> getRepliesByParentId(int parentPostId);
     public Reply createReply(String content, String username, int parentPostId);
     public void removeReply(int replyId);
     public List<Reply> getRepliesByUsername(String username);

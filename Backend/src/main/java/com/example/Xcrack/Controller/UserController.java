@@ -66,5 +66,26 @@ public class UserController {
         userService.unbanUser(username);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/{username}/follow/{usernameToFollow}")
+    public ResponseEntity<Void> FollowUser(@PathVariable String username, @PathVariable String usernameToFollow) {
+        userService.followUser(username, usernameToFollow);
+        return ResponseEntity.ok().build(); 
+    }
+
+    @PostMapping("/{username}/unfollow/{usernameToUnfollow}")
+    public ResponseEntity<Void> unfollowUser(@PathVariable String username, @PathVariable String usernameToUnfollow) {
+        userService.unfollowUser(username, usernameToUnfollow);
+        return ResponseEntity.ok().build(); 
+    }
     
+    @GetMapping("/{username}/profile-picture")
+    public ResponseEntity<String> getProfilePictureUrl(@PathVariable String username) {
+        String profilePictureUrl = userService.getProfilePictureUrl(username);
+        if (profilePictureUrl != null) {
+            return ResponseEntity.ok(profilePictureUrl);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

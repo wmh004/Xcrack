@@ -32,7 +32,7 @@ public class ReplyController {
         replyService.removeReply(replyId);
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/byusername/{username}")
     public List<Reply> getRepliesByUsername(@PathVariable String username) {
         return replyService.getRepliesByUsername(username);
     }
@@ -43,9 +43,14 @@ public class ReplyController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{replyId}")
+    @GetMapping("/byid/{replyId}")
     public Reply getReplyById(@PathVariable int replyId) {
         return replyService.getReplyById(replyId);
+    }
+    
+    @GetMapping("/byparentid/{parentId}")
+    public List<Reply> getRepliesByParentId(@PathVariable int parentId) {
+        return replyService.getRepliesByParentId(parentId);
     }
 }
 

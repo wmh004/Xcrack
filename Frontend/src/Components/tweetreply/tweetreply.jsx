@@ -50,7 +50,7 @@ const tweetreply = ({ item }) => {
                 color: "rgb(113, 118, 123)",
               }}
             >
-              {item.account_name}
+              @{item.account_name}
             </div>
           </div>
           <div

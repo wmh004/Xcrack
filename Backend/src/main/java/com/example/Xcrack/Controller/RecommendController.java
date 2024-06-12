@@ -22,7 +22,7 @@ public class RecommendController {
     
 
     @GetMapping("/posts")
-    public List<Post> getPosts(@RequestParam int userId) {
-        return recommendService.getPosts(userId);
+    public List<Post> getPosts(@RequestParam String username) {
+        return recommendService.getPosts(username);
     }
 }
