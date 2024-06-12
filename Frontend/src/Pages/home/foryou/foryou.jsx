@@ -26,220 +26,54 @@ const Foryou = () => {
     setToggledIndex(null);
   };
 
-  const contentItem = [
-    {
-      username: "Mai",
-      account_name: "@MaisarahMahmud",
-      time: "15h",
-      captions:
-        "‘He knows what's good for you and when it's good for you to have it’",
-      comment_count: "2",
-      rt_count: "2",
-      like_count: "2",
-      view_count: "161K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "Johnrey",
-      account_name: "@Jessx_09",
-      time: "May 15",
-      captions:
-        "silent breakdown, because no one knows how tired and exhaust i am.",
-      comment_count: "8",
-      rt_count: "3K",
-      like_count: "5.7K",
-      view_count: "233K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "T🩺🇵🇸",
-      account_name: "@tamanna_tx",
-      time: "21h",
-      captions: "Need a trip to Makkah and Madina to refresh my soul.",
-      comment_count: "20",
-      rt_count: "4.8",
-      like_count: "10K",
-      view_count: "269K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "🇲🇾",
-      account_name: "@localrkyt",
-      time: "16h",
-      captions:
-        "Namakan satu lauk ayam yang korang takkan jemu makan walaupun makan hari-hari 🤨😋",
-      comment_count: "570",
-      rt_count: "1.1K",
-      like_count: "1K",
-      view_count: "344K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "Mai",
-      account_name: "@MaisarahMahmud",
-      time: "15h",
-      captions: "‘Trust’, simple word but often ignored",
-      comment_count: "2",
-      rt_count: "2",
-      like_count: "2",
-      view_count: "161K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "Johnrey",
-      account_name: "@Jessx_09",
-      time: "May 15",
-      captions:
-        "slient breadown,because no one knows how tired and exhaust i am.",
-      comment_count: "8",
-      rt_count: "3K",
-      like_count: "5.7K",
-      view_count: "233K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "T🩺🇵🇸",
-      account_name: "@tamanna_tx",
-      time: "21h",
-      captions: "Need a trip to Makkah and Madina to refresh my soul.",
-      comment_count: "20",
-      rt_count: "4.8",
-      like_count: "10K",
-      view_count: "269K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "🇲🇾",
-      account_name: "@localrkyt",
-      time: "16h",
-      captions:
-        "Namakan satu lauk ayam yang korang takkan jemu makan walaupun makan hari-hari 🤨😋",
-      comment_count: "570",
-      rt_count: "1.1K",
-      like_count: "1K",
-      view_count: "344K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "Mai",
-      account_name: "@MaisarahMahmud",
-      time: "15h",
-      captions:
-        "‘He knows what's good for you and when it's good for you to have it’",
-      comment_count: "2",
-      rt_count: "2",
-      like_count: "2",
-      view_count: "161K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "Johnrey",
-      account_name: "@Jessx_09",
-      time: "May 15",
-      captions:
-        "slient breadown,because no one knows how tired and exhaust i am.",
-      comment_count: "8",
-      rt_count: "3K",
-      like_count: "5.7K",
-      view_count: "233K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "T🩺🇵🇸",
-      account_name: "@tamanna_tx",
-      time: "21h",
-      captions: "Need a trip to Makkah and Madina to refresh my soul.",
-      comment_count: "20",
-      rt_count: "4.8",
-      like_count: "10K",
-      view_count: "269K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "🇲🇾",
-      account_name: "@localrkyt",
-      time: "16h",
-      captions:
-        "Namakan satu lauk ayam yang korang takkan jemu makan walaupun makan hari-hari 🤨😋",
-      comment_count: "570",
-      rt_count: "1.1K",
-      like_count: "1K",
-      view_count: "344K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-
-    {
-      username: "Mai",
-      account_name: "@MaisarahMahmud",
-      time: "15h",
-      captions:
-        "‘He knows what's good for you and when it's good for you to have it’",
-      comment_count: "2",
-      rt_count: "2",
-      like_count: "2",
-      view_count: "161K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "Johnrey",
-      account_name: "@Jessx_09",
-      time: "May 15",
-      captions:
-        "silent breakdown, because no one knows how tired and exhaust i am.",
-      comment_count: "8",
-      rt_count: "3K",
-      like_count: "5.7K",
-      view_count: "233K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "T🩺🇵🇸",
-      account_name: "@tamanna_tx",
-      time: "21h",
-      captions: "Need a trip to Makkah and Madina to refresh my soul.",
-      comment_count: "20",
-      rt_count: "4.8",
-      like_count: "10K",
-      view_count: "269K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-    {
-      username: "🇲🇾",
-      account_name: "@localrkyt",
-      time: "16h",
-      captions:
-        "Namakan satu lauk ayam yang korang takkan jemu makan walaupun makan hari-hari 🤨😋",
-      comment_count: "570",
-      rt_count: "1.1K",
-      like_count: "1K",
-      view_count: "344K",
-      save_count: "344K",
-      media: selectedFiles,
-    },
-  ];
-
   const handleItemClick = (item) => {
     Navigate("/in/reply", { state: { item } }); /*pass item to tweet */
   };
 
+  const [posts, setPosts] = useState([]);
+
+  const transformData = (apiData) => {
+    return apiData.map((item) => {
+      return {
+        username: item.name,
+        account_name: item.username, // Assuming "name" from API corresponds to "account_name" in your frontend
+        time: item.timeCreated, // You may need to format this according to your frontend's requirements
+        captions: item.content,
+        comment_count: item.replyCount,
+        rt_count: item.repostCount,
+        like_count: item.likeCount,
+        view_count: item.viewCount,
+        save_count: item.bookmarkCount, // Assuming "bookmarkCount" from API corresponds to "save_count" in your frontend
+        media: selectedFiles, // You'll need to fill this based on your selected files
+        id: item.id,
+      };
+    });
+  };
+
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/recommend/posts?username=${encodeURIComponent(profileData.username)}`
+      );
+      const data = await response.json();
+      const transformedData = transformData(data);
+      setPosts(transformedData);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []); // Empty dependency array means it will only run once, similar to componentDidMount
+
+  useEffect(() => {
+    console.log("Posts after update:", posts);
+  }, [posts]); // Empty dependency array means it will only run once, similar to componentDidMount
+
   return (
     <div className="home-contents-container">
-      {contentItem.map((item, index) => (
+      {posts.map((item, index) => (
         <div
           style={{
             width: "100%",

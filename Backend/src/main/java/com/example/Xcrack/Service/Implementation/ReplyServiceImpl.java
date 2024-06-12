@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.Xcrack.Exception.NotFoundException;
-import com.example.Xcrack.Model.Media;
+import com.example.Xcrack.Model.Hashtag;
 import com.example.Xcrack.Model.Post;
 import com.example.Xcrack.Model.Reply;
 import com.example.Xcrack.Model.User;
@@ -39,8 +39,11 @@ public class ReplyServiceImpl implements ReplyService {
     @Autowired
     private HashtagService hashtagService;
 
+    @Autowired
+    private UserHashtagServiceImpl userHashtagServiceImpl;
+
     @Override
-    public Reply createReply(String content, String username, int parentPostId, List<Media> mediaList) {
+    public Reply createReply(String content, String username, int parentPostId) {
         User user = userRepository.findByUsername(username);
 
         if (user == null)
@@ -53,23 +56,15 @@ public class ReplyServiceImpl implements ReplyService {
 
         Reply reply = new Reply(content, user, parentPost);
 
-        if (mediaList != null) {
-            reply.setMediaList(mediaList);
-            mediaList.forEach(media -> media.setReply(reply));
-        } else {
-            reply.setMediaList(null);
-        }
-
         Set<String> hashtags = extractHashtags(content);
         Set<String> mentions = extractMentions(content);
 
-        for (String hashtag : hashtags) {
-            hashtagService.addHashtag(hashtag);
-        }
-
+        processHashtags(user, hashtags, reply);
         processMentions(user, mentions, reply.getId());
+        processHashtagsFromParentPost(user, parentPost);
 
         parentPost.addReply(reply);
+        parentPost.setReplyCount(parentPost.getReplyCount() + 1);
         user.addReply(reply);
         return replyRepository.save(reply);
     }
@@ -85,20 +80,16 @@ public class ReplyServiceImpl implements ReplyService {
         reply.setDeleted(true);
         reply.setContent("This reply has been deleted");
     
-        // Clear the mediaList to ensure orphan removal
-        if (reply.getMediaList() != null) {
-            reply.getMediaList().clear();
-        }
-    
         replyRepository.save(reply);
     }
 
     private Set<String> extractHashtags(String content) {
+        content = content.toLowerCase();
         Set<String> hashtags = new HashSet<>();
         Pattern pattern = Pattern.compile("#\\w+");
         Matcher matcher = pattern.matcher(content);
         while (matcher.find()) {
-            hashtags.add(matcher.group().substring(1)); // Remove the '#' character
+            hashtags.add(matcher.group().substring(1).toLowerCase()); // Remove the '#' character
         }
         return hashtags;
     }
@@ -123,6 +114,19 @@ public class ReplyServiceImpl implements ReplyService {
         }
     }
 
+    private void processHashtags(User user, Set<String> hashtags, Reply reply) {
+        for (String hashtag : hashtags) {
+            reply.setHashtags(hashtagService.addHashtag(hashtag));
+            userHashtagServiceImpl.addUserHashtagFromPost(user, hashtag);
+        }
+    }
+
+    private void processHashtagsFromParentPost(User user, Post post){
+        for(Hashtag hashtag : post.getHashtags()){
+            userHashtagServiceImpl.addUserHashtagFromReply(user, hashtag.getHashtag()); 
+        }
+    }
+
     @Override
     public List<Reply> getRepliesByUsername(String username) {
         return replyRepository.getReplyListByUsername(username);
@@ -132,11 +136,26 @@ public class ReplyServiceImpl implements ReplyService {
     public void likeReply(int replyId, int userId) {
         // Retrieve the post from the database
         Reply reply = replyRepository.getReplyById(replyId);
+        User user = userRepository.findById(userId);
 
+        for(Hashtag hashtag : reply.getHashtags()){
+            userHashtagServiceImpl.addUserHashtagFromLike(user, hashtag.getHashtag());
+        }
+        
         // Increment the like count
         reply.setLikeCount(reply.getLikeCount() + 1);
 
         // Save the updated post back to the database
         replyRepository.save(reply);
+    }
+
+    @Override
+    public Reply getReplyById(int ID) {
+        return replyRepository.getReplyById(ID);
+    }
+  
+    @Override
+    public List<Reply> getRepliesByParentId(int parentPostId) {
+        return replyRepository.getRepliesByParentId(parentPostId);
     }
 }

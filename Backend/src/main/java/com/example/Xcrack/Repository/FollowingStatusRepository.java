@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface FollowingStatusRepository extends JpaRepository<FollowingStatus, Integer> {
     List<FollowingStatus> findByFollower(User follower);
+    
 }

@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/user")
@@ -54,5 +53,39 @@ public class UserController {
     public List<Reply> getReplies(@PathVariable String username) {
         return userService.getRepliesByUsername(username);
     }
+
     
+    @PutMapping("/{username}/ban")
+    public ResponseEntity<Void> banUser(@PathVariable String username) {
+        userService.banUser(username);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{username}/unban")
+    public ResponseEntity<Void> unbanUser(@PathVariable String username) {
+        userService.unbanUser(username);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{username}/follow/{usernameToFollow}")
+    public ResponseEntity<Void> FollowUser(@PathVariable String username, @PathVariable String usernameToFollow) {
+        userService.followUser(username, usernameToFollow);
+        return ResponseEntity.ok().build(); 
+    }
+
+    @PostMapping("/{username}/unfollow/{usernameToUnfollow}")
+    public ResponseEntity<Void> unfollowUser(@PathVariable String username, @PathVariable String usernameToUnfollow) {
+        userService.unfollowUser(username, usernameToUnfollow);
+        return ResponseEntity.ok().build(); 
+    }
+    
+    @GetMapping("/{username}/profile-picture")
+    public ResponseEntity<String> getProfilePictureUrl(@PathVariable String username) {
+        String profilePictureUrl = userService.getProfilePictureUrl(username);
+        if (profilePictureUrl != null) {
+            return ResponseEntity.ok(profilePictureUrl);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

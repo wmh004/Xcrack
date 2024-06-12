@@ -10,6 +10,7 @@ import { useProfile } from "../../DataSets/ProfileContext";
 import Tweet from "../tweet/tweet";
 
 const Tweetpostreply = ({ item }) => {
+  const [response, setResponse] = useState("");
   const { profileData, setProfileData } = useProfile();
   const [caption, setCaption] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -40,24 +41,70 @@ const Tweetpostreply = ({ item }) => {
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
-  const handlePost = () => {
+  const formatTime = (timeString) => {
+    const date = new Date(`1970-01-01T${timeString}Z`);
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  };
+
+  const handlePost = async () => {
     if (caption) {
-      const newPostItem = {
-        username: profileData.name,
-        account_name: profileData.username,
-        time: new Date().toLocaleTimeString(),
-        captions: caption,
-        comment_count: "0",
-        rt_count: "0",
-        like_count: "0",
-        view_count: "0",
-        save_count: "0",
-        media: selectedFiles,
+      const newPostItem1 = {
+        content: caption,
+        username: profileData.username,
+        mediaList: [],
       };
 
-      setPosts((prevPosts) => [...prevPosts, newPostItem]);
-      setCaption(""); // Clear the caption input after posting
-      setSelectedFiles([]); // Clear selected files after posting
+      try {
+        const res = await fetch(
+          `http://localhost:8080/replies/${encodeURIComponent(
+            item.id
+          )}/create-reply`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newPostItem1),
+          }
+        );
+        const data = await res.json();
+        console.log("Response data:", data);
+        if (data.id != null) {
+          const newPostItem2 = {
+            username: profileData.name,
+            account_name: profileData.username,
+            time: new Date().toLocaleTimeString(),
+            captions: caption,
+            comment_count: "0",
+            rt_count: "0",
+            like_count: "0",
+            view_count: "0",
+            save_count: "0",
+            media: selectedFiles,
+            id: data.id,
+          };
+          newPostItem2.time = formatTime(data.timeCreated.split(".")[0]);
+          newPostItem2.captions = data.content;
+          newPostItem2.rt_count = data.repostCount;
+          newPostItem2.like_count = data.likeCount;
+          newPostItem2.view_count = data.viewCount;
+          newPostItem2.save_count = data.bookmarkCount;
+
+          setPosts((prevPosts) => [...prevPosts, newPostItem2]);
+          setCaption("");
+          setSelectedFiles([]);
+        } else {
+          setResponse(data.message);
+        }
+      } catch (error) {
+        setResponse("Failed to register. Please try again.");
+        console.error("Error:", error);
+      }
     }
   };
 
@@ -89,7 +136,7 @@ const Tweetpostreply = ({ item }) => {
             <p style={{ color: "rgb(113, 118, 123)" }}>
               Replying to{" "}
               <span style={{ color: "rgb(29, 155, 240)" }}>
-                {item.account_name}
+                @{item.account_name}
               </span>
             </p>
           </div>

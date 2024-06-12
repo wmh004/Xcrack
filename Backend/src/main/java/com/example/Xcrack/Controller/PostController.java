@@ -34,14 +34,14 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/postbyid/{postId}")
-    public Post getPostByPostId(@PathVariable int postId) {
+    @GetMapping("/post-by-id/{postId}")
+    public Post getPostById(@PathVariable int postId) {
         return postService.getPostByPostID(postId);
     }
     
     @PostMapping("/{username}/create-post")
     public Post createPost(@RequestBody Post post, @PathVariable String username) {
-        return postService.createPost(post.getContent(), username, post.getMediaList());
+        return postService.createPost(post.getContent(), username);
     }
 
     @PostMapping("/{postId}/remove-post")
@@ -49,18 +49,18 @@ public class PostController {
         postService.removePost(postId);
     }
 
-    @PostMapping("/{username}/create-reply")
-    public Reply createReply(@RequestBody Reply reply, @PathVariable String username) {
-        return replyService.createReply(reply.getContent(), username, reply.getParentPost().getId(), reply.getMediaList());
+    @PostMapping("/{parentPostId}/create-reply/{replyId}")
+    public Reply createReply(@RequestBody Reply reply, int parentPostId) {
+        return replyService.createReply(reply.getContent(), reply.getUsername(), parentPostId);
     }
 
-    @PostMapping("/{postId}/remove-reply/{replyId}")
-    public void removeReply(@PathVariable int postId, @PathVariable int replyId) {
+    @PostMapping("/{replyId}/remove-reply")
+    public void removeReply(@PathVariable int replyId) {
         replyService.removeReply(replyId);
     }
     
 
-    @GetMapping("/postsbyusername/{username}")
+    @GetMapping("/posts-by-username/{username}")
     public List<Post> getPostsByUsername(@PathVariable String username) {
         return postService.getPostsByUsername(username);
     }

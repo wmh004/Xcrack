@@ -1,7 +1,6 @@
 package com.example.Xcrack.Model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateTimeConverter;
@@ -34,9 +33,6 @@ public class Message {
     @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tag> tags;
 
-    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Media> mediaList = new ArrayList<>();
-
     @ElementCollection
     @CollectionTable(name = "user_tagged_usernames", joinColumns = @JoinColumn(name = "used_id"))
     @Column(name = "tagged_username")
@@ -61,14 +57,6 @@ public class Message {
 
     public User getSender() {
         return sender;
-    }
-
-    public List<Media> getMediaList() {
-        return mediaList;
-    }
-
-    public void setMediaList(List<Media> mediaList) {
-        this.mediaList = mediaList;
     }
 
     public List<Tag> getTags() {

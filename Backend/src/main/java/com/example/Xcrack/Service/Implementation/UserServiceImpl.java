@@ -18,6 +18,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private FollowingStatusServiceImpl followingStatusServiceImpl; 
+
     @Override
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -34,8 +37,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void banUser(int ID) {
-        User userToBan = userRepository.findById(ID);
+    public void banUser(String username) {
+        User userToBan = userRepository.findByUsername(username);
         if (userToBan != null) {
             userToBan.ban();
             userRepository.save(userToBan);
@@ -43,8 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void unbanUser(int ID) {
-            User userToUnban = userRepository.findById(ID);
+    public void unbanUser(String username) {
+        User userToUnban = userRepository.findByUsername(username);
         if (userToUnban != null) {
             userToUnban.unban();
             userRepository.save(userToUnban);
@@ -141,6 +144,7 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException(usernameToFollow);
 
         user.followUser(userToFollow);
+        followingStatusServiceImpl.FollowUser(user, userToFollow); 
     }
 
     @Override
@@ -155,6 +159,7 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException(usernameToUnfollow);
 
         user.unfollowUser(userToUnfollow);
+        followingStatusServiceImpl.UnfollowUser(user, userToUnfollow); 
     }
 
     @Override
@@ -164,6 +169,11 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException(username);
         }
         return new UserDetails(user.getUsername(), user.getName(), user.getBio(), user.getProfilePictureUrl(), user.getBackgroundPictureUrl(), user.getLocation(), user.getWebsiteUrl(), user.getDob(), user.getFollowers(), user.getFollowing(), user.getPosts(), user.getReplies());
+    }
+
+    public String getProfilePictureUrl(String username) {
+        User user = userRepository.findByUsername(username);
+        return (user != null) ? user.getProfilePictureUrl() : null;
     }
     
 }
