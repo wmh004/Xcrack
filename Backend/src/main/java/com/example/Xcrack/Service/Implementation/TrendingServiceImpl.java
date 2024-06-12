@@ -7,6 +7,7 @@ import com.example.Xcrack.Repository.TrendingHashtagRepository;
 import com.example.Xcrack.Model.Hashtag;
 import com.example.Xcrack.Service.TrendingService;
 
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
