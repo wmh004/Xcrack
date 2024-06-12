@@ -17,14 +17,19 @@ public class HashtagServiceImpl implements HashtagService{
 
     @Override
     public Hashtag addHashtag(String hashtag) {
+        // Check if the hashtag already exists
         Hashtag existingHashtag = hashtagRepository.findByHashtag(hashtag);
-        if (getAllHashtags().contains(existingHashtag)) {
-            return hashtagRepository.findByHashtag(hashtag);
+        if (existingHashtag != null) {
+            // If it exists, increment the count
+            existingHashtag.incrementCount();
+            return hashtagRepository.save(existingHashtag); // Save the updated hashtag
         } else {
+            // If it doesn't exist, create a new hashtag with count 1
             Hashtag newHashtag = new Hashtag();
             newHashtag.setHashtag(hashtag);
-            hashtagRepository.save(newHashtag);
-            return newHashtag; 
+            newHashtag.setCount(1); // Set count to 1 for new hashtags
+            // Save the new hashtag to the repository
+            return hashtagRepository.save(newHashtag);
         }
     }
 
