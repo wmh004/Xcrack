@@ -9,6 +9,7 @@ import com.example.Xcrack.Model.Hashtag;
 import com.example.Xcrack.Model.Post;
 import com.example.Xcrack.Service.TrendingService;
 
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class TrendingServiceImpl implements TrendingService {
 
 }
      @Override
+     @Transactional
     public void addPost(Post post) {
         for (Hashtag hashtag : post.getHashtags()) {
             Hashtag existingHashtag = hashtagRepository.findByHashtag(hashtag.getHashtag());
