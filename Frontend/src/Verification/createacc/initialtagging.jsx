@@ -121,7 +121,7 @@ const InitialTagging = () => {
         }}
       >
         <h2>Choose Your Tags</h2>
-        {data}yes
+        {/* {data}yes */}
         <div className="tag-grid">
           {tags.map((tag, index) => (
             <div

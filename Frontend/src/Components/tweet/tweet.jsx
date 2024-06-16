@@ -13,6 +13,7 @@ import { useProfile } from "../../DataSets/ProfileContext";
 import ImageGridDisplayTweet from "../ImageGridDisplayTweet/ImageGridDisplayTweet";
 
 const Tweet = ({ item, onMoreButtonClick }) => {
+  const [response, setResponse] = useState("");
   const location = useLocation();
   const [isHovered1, setIsHovered1] = useState(false);
   const [isHovered2, setIsHovered2] = useState(false);
@@ -31,6 +32,28 @@ const Tweet = ({ item, onMoreButtonClick }) => {
       setProfileData(location.state.profileData);
     }
   }, [location.state, setProfileData]);
+
+  const handleLikePost = async (postId, event) => {
+    try {
+      const res = await fetch(
+        `http://localhost:8080/posts/${encodeURIComponent(postId)}/like`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await res.text();
+      if (true) {
+        setResponse(data);
+      }
+    } catch (error) {
+      setResponse("Failed to like the post. Please try again.");
+      console.error("Error:", error);
+    }
+    event.stopPropagation();
+  };
 
   return (
     <div className="home-content">
@@ -186,6 +209,7 @@ const Tweet = ({ item, onMoreButtonClick }) => {
                 height: "22px",
                 width: "24px",
               }}
+              onClick={(event) => handleLikePost(item.id, event)}
               title="Like"
               alt="Like"
             />

@@ -51,26 +51,28 @@ const Foryou = () => {
     });
   };
 
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:8080/recommend/posts?username=${encodeURIComponent(profileData.username)}`
-      );
-      const data = await response.json();
-      const transformedData = transformData(data);
-      setPosts(transformedData);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/recommend/posts?username=${encodeURIComponent(
+            profileData.username
+          )}`
+        );
+        const data = await response.json();
+        const transformedData = transformData(data);
+        setPosts(transformedData);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    if (location.state && location.state.profileData) {
+      setProfileData(location.state.profileData);
     }
-  };
 
-  useEffect(() => {
     fetchPosts();
-  }, []); // Empty dependency array means it will only run once, similar to componentDidMount
-
-  useEffect(() => {
-    console.log("Posts after update:", posts);
-  }, [posts]); // Empty dependency array means it will only run once, similar to componentDidMount
+  }, [location.state, profileData.username, setProfileData]);
 
   return (
     <div className="home-contents-container">

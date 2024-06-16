@@ -152,6 +152,11 @@ public class DataInitializer implements CommandLineRunner {
         createAndSavePostsWithReplies(animePosts, user3);
         createAndSavePostsWithReplies(badmintonPosts, user4);
         createAndSavePostsWithReplies(programmingPosts, user5);
+        createAndSavePostsWithReplies(catPosts, user1);
+        createAndSavePostsWithReplies(educationPosts, user2);
+        createAndSavePostsWithReplies(animePosts, user3);
+        createAndSavePostsWithReplies(badmintonPosts, user4);
+        createAndSavePostsWithReplies(programmingPosts, user5);
     }
 
     private void createAndSavePostsWithReplies(List<String> postContents, User user) {
