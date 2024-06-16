@@ -10,6 +10,27 @@ This is a X-like website application called **Xcrack** made by our group for WIA
 4. Muhammad Amir Hakim Bin Madzlan | 22002511/2
 5. Muhammad Syahmie Bin Mohd Affandi | 22001043/2
 
+## Tools used:
+### Backend
+1. Spring Boot Dashboard
+2. Spring Boot Extension Pack
+3. Spring Boot Tools
+4. Spring Initialzr Java Support
+5. Maven for Java
+6. MySQL
+
+### Frontend
+1. Node Extension Pack
+2. ES7+ React/Redux/React-Native snippets
+3. HTML CSS Support
+4. IntelliCode
+5. IntelliCode API Usage Examples
+6. JavaScript (ES6) code snippets
+7. Live Server
+8. Prettier - Code Formatter
+9. Simple React Snippets
+10. ESLint
+
 ## Backend
 ### Configuration
 All of the configuration files can be found [here](https://github.com/wmh004/Xcrack/tree/main/Backend/src/main/java/com/example/Xcrack/Config).
